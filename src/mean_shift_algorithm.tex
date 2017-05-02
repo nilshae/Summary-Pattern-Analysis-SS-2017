@@ -1,0 +1,29 @@
+% !TeX root = ../main.tex
+
+\section{Mean Shift Algorithm}
+
+\paragraph{Purpose:}
+Find maximum in pdf without actually performing a full density estimation.
+
+\paragraph{Potential applications:}
+Clustering, segmentation, \ldots{} \\
+
+Assume that we have a full density estimator.
+
+\begin{equation*}
+  p(\vec{x}) = \dfrac{1}{N} \sum_{i=1}^N k(\vec{x}; \vec{x_i})
+\end{equation*}
+
+Idea: Maxima can be found, where the gradient of the pdf is zero.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\textwidth]{todo}
+  \caption{The kernel size indirectly controls the number of indentified maxima}
+\end{figure}
+% use subfigure
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{todo}
+  \caption{One of the issues is, the case when a zero gradient is just between two finer maxima}
+\end{figure}

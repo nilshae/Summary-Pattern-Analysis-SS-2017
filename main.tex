@@ -1,0 +1,37 @@
+ \documentclass[12p]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{import}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+% \usepackage[margin=1in]{geometry}
+\usepackage{multirow}
+\usepackage{hyperref}
+
+\title{Skript Pattern Analysis Sommersemester 2017}
+\author{Nils Häusler}
+\date{\today}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\sgn}{sgn}
+
+\setlength{\parindent}{0em}
+
+\begin{document}
+
+\begin{titlepage}
+  \maketitle
+  \thispagestyle{empty}
+\end{titlepage}
+
+\newpage
+\import{./src/}{density_estimation.tex}
+
+\newpage
+\import{./src/}{mean_shift_algorithm.tex}
+
+\end{document}

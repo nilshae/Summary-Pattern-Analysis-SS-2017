@@ -1,0 +1,10 @@
+# Fdb version 3
+["pdflatex"] 1493655247 "mean_shift_algorithm.tex" "output/mean_shift_algorithm.pdf" "mean_shift_algorithm" 1493655247
+  "/usr/local/texlive/2016/texmf-dist/web2c/texmf.cnf" 1463093894 31953 b9489e6e586f798610c60aec1f5ec548 ""
+  "/usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt" 1479898524 3873398 c61a195925f947e61fcb9a1deab7bb8a ""
+  "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
+  "mean_shift_algorithm.tex" 1493655239 31 02d50924c53cbfa18a12b7091493e0e6 ""
+  "output/mean_shift_algorithm.aux" 1493655244 8 a94a2480d3289e625eea47cd1b285758 ""
+  (generated)
+  "output/mean_shift_algorithm.pdf"
+  "output/mean_shift_algorithm.log"
