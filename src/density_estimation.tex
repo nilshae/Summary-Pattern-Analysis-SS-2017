@@ -25,7 +25,8 @@ We make no assumption of the underlying Model.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\textwidth]{todo}
+  \includegraphics[width=0.8\textwidth]{01-pr-estimator}
+  \caption{A PDF describing the distribution of measurements}
 \end{figure}
 
 The Parzen window estimator interpolates the pdf from the observations in the neighbourhood of a position $x$, using an appropriate kernel/window function.
@@ -87,7 +88,7 @@ equivalently, if we use a (multivariate) gaussian kernel:
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\textwidth]{todo}
+  \includegraphics[width=\textwidth]{02-pdf-cdf}
 \end{figure}
 
 Compute through discretisation of the pdf $cdf[i] = cdf[i-1] + pdf[i]$. Then draw a uniformly distributed number ($r$) between 0 and 1. The sampled value is $x$ where $cdf[x] = r$
@@ -107,7 +108,7 @@ We estimate the pdf from all samples except $\vec{x_j}$. $\vec{x_i}$ will be use
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\textwidth]{todo}
+  \includegraphics[width=0.8\textwidth]{03-window-size}
 \end{figure}
 
 \begin{equation*}

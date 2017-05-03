@@ -3,7 +3,7 @@
 \section{\href{http://ieeexplore.ieee.org/document/1000236/?arnumber=1000236&tag=1}{Mean Shift Algorithm}}
 
 \paragraph{Purpose:}
-Find maximum in pdf without actually performing a full density estimation.
+Find maximum in pdf without actually performing a full density estimation. \footnote{This applies only in some cases, e.g. quickly finding clusters through particle tracing or with a downsampled PDF (see section \ref{mean-shift-cost-effectiveness})}
 
 \paragraph{Potential applications:}
 Clustering, segmentation, \ldots{}
@@ -12,14 +12,14 @@ Clustering, segmentation, \ldots{}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\textwidth]{todo}
+  \includegraphics[width=0.8\textwidth]{04-kernel-size}
   \caption{The kernel size indirectly controls the number of indentified maxima}
 \end{figure}
 % use subfigure
 \begin{figure}[h]
   \label{mean-shift-issue}
   \centering
-  \includegraphics[width=0.3\textwidth]{todo}
+  \includegraphics[width=0.8\textwidth]{05-kernel-size-pitfall}
   \caption{One of the issues is, the case when a zero gradient is just between two finer maxima}
 \end{figure}
 
@@ -92,7 +92,8 @@ Assume we have a 2-D feature space
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\textwidth]{todo}
+  \includegraphics[width=\textwidth]{06-moving-epan-kernel}
+  \caption{Mean Shift iterations with an Epanechnikov kernel}
 \end{figure}
 
 \subparagraph{Specific example:}
@@ -111,6 +112,6 @@ Assume we have a 2-D feature space
 \subparagraph{Remarks on the found maxima:}
 \begin{itemize}
   \item Different trajectories typically coverage only to \textbf{almost} the same peak, thus, we will have to post process the peaks and somehow reduce them.
-  \item We don't have a guarentee to sit on top of a maximum when reaching a 0-gradient. This is due to the finite window size and the discrete representation of our density (see. \ref{mean-shift-issue}).
-  \item If the amount of data is large, then it may become extremly costly to iteratively evaluate the ``neighbourhood finder''. In that case we have to help ourself, either with a smart data structure (oct-tree or a generalisation for many dimensions) or locality sensitve hashing (LSH).
+  \item We don't have a guarentee to sit on top of a maximum when reaching a 0-gradient. This is due to the finite window size and the discrete representation of our density (see figure \ref{mean-shift-issue}).
+  \item \label{mean-shift-cost-effectiveness} If the amount of data is large, then it may become extremly costly to iteratively evaluate the ``neighbourhood finder''. In that case we have to help ourself, either with a smart data structure (oct-tree or a generalisation for many dimensions) or locality sensitve hashing (LSH).
 \end{itemize}
