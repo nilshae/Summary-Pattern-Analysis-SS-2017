@@ -55,7 +55,7 @@ Let $p_R = \dfrac{k_R}{N}$, we determine the probability of making observations 
   p(\vec{x}) = \dfrac{p_R}{V_R} = \dfrac{k_R}{V_R N}
 \end{equation*}
 
-Lets write the parzen window estimator as a function of a kernel\footnote{Omit $h^d$ if the kernel is gaussian} $k(\vec{x}; \vec{x_i})$, then
+Let's write the parzen window estimator as a function of a kernel\footnote{Omit $h^d$ if the kernel is gaussian} $k(\vec{x}; \vec{x_i})$, then
 
 \begin{equation*}
   p(\vec{x}) = \dfrac{1}{h^d N} \sum_{i=1}^N k(\vec{x}; \vec{x_i})
@@ -95,7 +95,7 @@ Compute through discretisation of the pdf $cdf[i] = cdf[i-1] + pdf[i]$. Then dra
 
 \subparagraph{Q:} How can we determine a good window / kernel width h?
 
-Lets do ML est.\ with a cross-vaslidation (cv) (e.g.\ leave-one-sample-out cv)
+Let's do ML est.\ with a cross-vaslidation (cv) (e.g.\ leave-one-sample-out cv)
 
 \begin{equation*}
   p_{h,N-1}^j(\vec{x}) = \dfrac{1}{h^d N} \sum_{i=1 (i \neq j)}^N k(\vec{x}; \vec{x_i})

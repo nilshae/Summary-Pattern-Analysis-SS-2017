@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1493719942 "main.tex" "output/main.pdf" "main" 1493719943
+["pdflatex"] 1493811113 "main.tex" "output/main.pdf" "main" 1493811115
   "/usr/local/texlive/2016/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2016/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -96,13 +96,13 @@
   "/usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt" 1479898524 3873398 c61a195925f947e61fcb9a1deab7bb8a ""
   "/usr/local/texlive/2016/texmf.cnf" 1463979140 577 2938757e76f31531e65cc647e3507693 ""
   "images/todo.png" 1493641040 7916 1d42c05fa21f456f4cc6711cfe8e4556 ""
-  "main.tex" 1493656559 706 e4e74251bf7283516f92c505c25268b9 ""
-  "output/main.aux" 1493719943 1989 71ae84e55f8a498adbe8bd15532d1eae ""
-  "output/main.out" 1493719943 184 48674c278677f2dae563afb7bfff3b11 ""
-  "src/density_estimation.tex" 1493719942 4437 f460202052d0f93a9f909036feff6586 ""
-  "src/mean_shift_algorithm.tex" 1493657847 817 f0d9935bd0406dca5c6f3c548c678a75 ""
+  "main.tex" 1493800775 705 6e517e82e438f44d7dc40d45da9f01a5 ""
+  "output/main.aux" 1493811114 2752 31c729db6d45ac293d5982de904c3828 ""
+  "output/main.out" 1493811114 184 48674c278677f2dae563afb7bfff3b11 ""
+  "src/density_estimation.tex" 1493802163 4439 3cc07178935634f5da16d741a364915c ""
+  "src/mean_shift_algorithm.tex" 1493811113 4503 8939039e5c574ce2d43e46912f406e66 ""
   (generated)
   "output/main.aux"
-  "output/main.out"
   "output/main.log"
+  "output/main.out"
   "output/main.pdf"

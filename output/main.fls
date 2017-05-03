@@ -152,6 +152,8 @@ INPUT images/todo.png
 INPUT ./images/todo.png
 INPUT images/todo.png
 INPUT ./images/todo.png
+INPUT images/todo.png
+INPUT ./images/todo.png
 INPUT output/main.aux
 INPUT output/main.out
 INPUT output/main.out
