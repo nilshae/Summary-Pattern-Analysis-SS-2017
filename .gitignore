@@ -1,2 +1,5 @@
 main.synctex.gz
 /output/*
+*.log
+*.aux
+*.out
