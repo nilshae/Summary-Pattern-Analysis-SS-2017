@@ -1,3 +1,4 @@
+# ignore latex output
 main.synctex.gz
 /output/*
 *.log
