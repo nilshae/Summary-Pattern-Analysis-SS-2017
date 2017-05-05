@@ -1,5 +1,0 @@
-PWD /Volumes/Macintosh HD/Studium/Master/Semester_10/Pattern Analysis/Lecture/Latex Skript/src
-INPUT /usr/local/texlive/2016/texmf.cnf
-INPUT /usr/local/texlive/2016/texmf-dist/web2c/texmf.cnf
-INPUT /usr/local/texlive/2016/texmf-var/web2c/pdftex/pdflatex.fmt
-OUTPUT output/texput.log

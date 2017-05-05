@@ -1,7 +1,0 @@
-# Fdb version 3
-["pdflatex"] 1493655415 "main.tex" "output/main.pdf" "main" 1493655415
-  "main.tex" 0 -1 0 ""
-  "output/main.aux" 1493655415 8 a94a2480d3289e625eea47cd1b285758 ""
-  (generated)
-  "output/main.log"
-  "output/main.pdf"
