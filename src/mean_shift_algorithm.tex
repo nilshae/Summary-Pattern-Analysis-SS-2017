@@ -71,7 +71,7 @@ To perform a gradient acsend, compute the gradient, walk one step, re-compute th
 \paragraph{Mean shift algorithm (formalized)}
 \begin{enumerate}
   \item Compute the mean shift vector $m(\vec{x}^{(t)})$ (see \ref{mean-shift-vector})
-  \item Update $\vec{x}:\vec{x}^{(t+1)} = \vec{x}^{(t)} + m(\vec{x}^{(t)}) = \dfrac{\sum_{i=1}^N k_h'(||\vec{x_i} - \vec{x}||^2) \vec{x_i}}{\sum_{i=1}^N k_h'(||\vec{x_i} - \vec{x}||^2)}$
+  \item Update $\vec{x}:\vec{x}^{(t+1)} = \vec{x}^{(t)} + m(\vec{x}^{(t)}) = \vec{x}^{(t)} + \dfrac{\sum_{i=1}^N k_h'(||\vec{x_i} - \vec{x}||^2) \vec{x_i}}{\sum_{i=1}^N k_h'(||\vec{x_i} - \vec{x}||^2)} - \vec{x}^{(t)}= \dfrac{\sum_{i=1}^N k_h'(||\vec{x_i} - \vec{x}||^2) \vec{x_i}}{\sum_{i=1}^N k_h'(||\vec{x_i} - \vec{x}||^2)}$
 \end{enumerate}
 
 \subparagraph{Q:} Why is it called ``mean shift''?
