@@ -1,6 +1,6 @@
 # ignore latex output
 main.synctex.gz
-/output/*
+.output/*
 *.log
 *.aux
 *.out
