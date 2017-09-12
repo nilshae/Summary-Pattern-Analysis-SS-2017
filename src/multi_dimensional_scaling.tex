@@ -1,0 +1,45 @@
+% !TeX root = ../main.tex
+
+\subsection*{Multi Dimensional Scaling (MDS)}
+
+\textit{Task:} Reconstruct a set of points (potentially in a lower dimension) from their differences. MDS computes the "best" (in a least square sense) coordinates up to rotation, translation and mirroring (axis reversal).
+
+\textit{Mathmatical problem formulation:}
+\begin{itemize}
+    \item
+        Let \(S = \{x_1, \dots, x_N\}, x_i \in \mathbb{R}^d\).
+    \item
+        Let \(X\) denote a matrix consisting of all samples, \(X=[x_1, \dots, x_N] \in \mathbb{R}^{d \times N}\).
+    \item
+        Let \(D^2 = [d_{ij}^2]_{i, j \in \{1, \dots, N\}}\), where \(d_{ij}^2 = (x_i - x_j)^T (x_i - x_j)\).
+    \item
+        Goal: Given \(D^2\), compute \(X\).
+    \item
+        We assume that \(x_1, \dots, x_N\) have zero mean i.e. \(\sum_{i=1}^N x_i = 0\)
+\end{itemize}
+
+Let us consider the distance matrix in terms of \(x\):
+\[d_{ij}^2 = (x_i - x_j)^T(x_i - x_j)=x_i^T x_i + x_j^T x_j - 2 x_i x_j\]
+
+In matrix notation,
+\[D^2 = diag(X^T X) \cdot \vec{1}^T + \vec{1} \cdot diag(X^T X)^T - 2X^TX\]
+where \(diag(A)\) denotes a vector diagonal entries of \(A\), i.e. \(diag(A) = (a_{11}, a_{22}, \dots, a_{NN})^2\), and \(\vec{1}\) denotes a vector of ones, i.e. \(\vec{1} = (1,1,\dots,1)^T \in \mathbb{R}^d\).
+
+Multiply \(D^2\) from left and right with a centering matrix \(C = (I - \frac{1}{N} \vec{1} \ \vec{1}^T)\), and weight the result by \(-\frac{1}{2}\):
+\begin{align*}
+    -\frac{1}{2} C D^2 C &= -\frac{1}{2} (I- \frac{1}{N} \vec{1} \ \vec{1}^T) (diag(X^T X) \cdot \vec{1}^T + \vec{1} \cdot diag(X^T X)^T - 2X^TX)(I- \frac{1}{N} \vec{1} \ \vec{1}^T)\\
+    &= \dots (\text{see lecture, too lazy}) \\
+    &= X^T X
+\end{align*}
+
+This is a matrix factorization problem. If we compute the eigenvector-eigenvalue decomposition (we can do this because its an square matrix) of \(X^T X\) we get \(U \Sigma U^T \Rightarrow X = \Sigma^{\frac{1}{2}} U^T\).
+
+MDS is essentially the same thing as PCA, but it operates on distances. We can reduce the dimensionality of our data by:
+\begin{itemize}
+    \item
+        Determining the \(m\) largest eigennvalues and their corresponding eigenvectors
+    \item
+        Dropping the remaining eigenvalue and eigennvectors inside the multiplication
+\end{itemize}
+
+We can calculate \(\frac{\sum_{i=1}^p \lambda_i}{\sum_{i=1}^{n-1} \lambda_i}\), which expresses the proportioin of variance explained by \(p\) dimensions.

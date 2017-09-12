@@ -1,26 +1,26 @@
 % !TeX root = ../main.tex
 
-\section{\href{http://ieeexplore.ieee.org/document/1000236/?arnumber=1000236&tag=1}{Mean Shift Algorithm}}
+\section*{\href{http://ieeexplore.ieee.org/document/1000236/?arnumber=1000236&tag=1}{Mean Shift Algorithm}}
 
 \paragraph{Purpose:}
-Find maximum in pdf without actually performing a full density estimation. \footnote{This applies only in some cases, e.g. quickly finding clusters through particle tracing or with a downsampled PDF (see section \ref{mean-shift-cost-effectiveness})}
+Find maxima in pdf without actually performing a full density estimation \footnote{This applies only in some cases, e.g. quickly finding clusters through particle tracing or with a downsampled PDF (see section \ref{mean-shift-cost-effectiveness})}.
 
 \paragraph{Potential applications:}
-Clustering, segmentation, \ldots{}
+Clustering (maximum is cluster center), segmentation, \ldots{}
 
 \paragraph{Idea:} Maxima can be found, where the gradient of the pdf is zero. (Assume that we have a full density estimator.)
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{04-kernel-size}
-  \caption{The kernel size indirectly controls the number of indentified maxima}
-\end{figure}
-% use subfigure
-\begin{figure}[h]
-  \label{mean-shift-issue}
-  \centering
-  \includegraphics[width=0.8\textwidth]{05-kernel-size-pitfall}
-  \caption{One of the issues is, the case when a zero gradient is just between two finer maxima}
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{04-kernel-size}
+    \caption{The kernel size indirectly controls the number of indentified maxima}
+  \end{minipage}
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{05-kernel-size-pitfall}
+    \caption{One of the issues is, the case when a zero gradient is just between two finer maxima}
+    \label{mean-shift-issue}
+  \end{minipage}
 \end{figure}
 
 Let
@@ -82,7 +82,7 @@ If we plug in for $k_h$ the Epanechnikov kernel. Then the computation breaks dow
 
 \begin{equation*}
   k_E(\vec{x}) = \begin{cases}
-    c (1 - \vec{x}^T \vec{x})&\text{when } \vec{x}^T \vec{x} \le 1\\
+    c \cdot (1 - \vec{x}^T \vec{x})&\text{when } \vec{x}^T \vec{x} \le 1\\
     0 &\text{otherwise}
   \end{cases}
 \end{equation*}
@@ -92,7 +92,7 @@ Assume we have a 2-D feature space
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{06-moving-epan-kernel}
+  \includegraphics[width=0.4\textwidth]{06-moving-epan-kernel}
   \caption{Mean Shift iterations with an Epanechnikov kernel}
 \end{figure}
 
@@ -106,6 +106,7 @@ Assume we have a 2-D feature space
     \begin{itemize}
       \item Similar in result to a super pixel segmentation: operate locally in the image
       \item Incorporate the position of each pixel
+      \item Properly scale each feature dimension, such that distances are comparable (e.g. $\vec{x} = $(x,y,r,g,b))
     \end{itemize}
 \end{itemize}
 

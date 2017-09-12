@@ -1,0 +1,53 @@
+
+% !TeX root = ../main.tex
+
+\subsection*{Locally Linear Embedding (LLE)}
+
+\paragraph{Idea:} Treat the local neighborhood of a point \(x\) as linear. This makes the mapping an overall non-linear mapping consisting of small linear patches and we can linearily interpolate a point \(x_i\) from its neighbors,
+
+\[x_i = \sum_{x_j \in N(x_i), j \neq i} w_{ij} x_j, \text{ subject to } \sum_j w_{ij} = 1\]
+
+and search points \(x'\) in a lower dimensional space, such that $x_i' = \sum_{j \in N(x_i')} w_{ij} x_j'$
+
+\paragraph{Algorithm:}
+\begin{enumerate}
+    \item
+        Define the neighborhood (\(k\)-nearest neighbors, distance thresholding)
+    \item
+        Solve for \(w_{ij}\) in the high dimensional space
+        \[min \sum_{i}||x_i - \sum_{j\in N(x_i)} w_{ij} x_j||_2^2 \text{ subject to } \sum_{j \in N(x_i)} w_{ij} = 1\]%, \ \ \  \forall i \in \{1, \dots. N\}\]
+    \item
+        Solve for \(x_i' \in \mathbb{R}^{d'} (d' \ll d)\):
+        \[\sum_i ||x_i' - \sum_{j \in N(x_i)} w_{ij} x_j'||_2^2, \text{ subject to } \frac{1}{N} \cdot \sum_i x_i' \cdot x_i'^T = I, \sum_i x_i' = \vec{0}\]
+        The first constraint says that the covariance is the identity. Which basically fixes the volume.
+\end{enumerate}
+Nearer points in the original space will result in higher weights.
+
+\paragraph{Caveats:}
+\begin{enumerate}
+    \item
+        The idea of LLE is really nice, but the original formulation is sometimes a bit unstable if applied on real data. Therefore there exists a number of variants to LLE in the literature that aims to make it more robust.
+    \item
+        We will now deviate from the original formulation, and modify the constraint in step 2 to \(\sum_{j in N(x_i)} w_{ij}^2 =1\), to obtain a closed solution.
+\end{enumerate}
+
+\bigbreak
+
+\textit{Modified step 2} (weight computation): Note tha the objective function is \underline{invariant} to translation:
+\begin{align*}
+    \sum_{i=1}^N ||x_i - \sum_j w_{ij} x_j||_2^2 &= \sum_{i=1}^N ||(x_i - \vec{t}) - \sum_j w_{ij} (x_j - \vec{t})||_2^2\\
+    \Rightarrow \text{set } x_i = \vec{t} & \Rightarrow
+\sum_{i=1}^N ||\sum_j w_{ij} (x_j - x_i)||_2^2\\
+    = ||M_i\vec{w_i}||_2^2, \text{ where }
+    \vec{w_i} &= \left( \begin{array}{c} w_{i1} \\ w_{i2} \\ \dots \\ w_{iN} \end{array} \right)
+   , M_i = \left(\begin{array}{cccc} x_1 - x_i & x_2 - x_i& \dots& x_N - x_i \end{array}\right)\\
+\end{align*}
+Note: differences \(x_j - x_i = 0\) for \(x_j\) outside the neighborhood of \(x_i\)
+\[\Rightarrow minimize (M_i w_i)^T (M_i w_i) + \lambda(1-w_i^T w_i)\]
+where the latter is the constraint that the squared weights should sum up to one. We see why we have to take the squaered weights critereon: if we would compute the derivative of \(\lambda(1-w_i)\), the constraint would vanish to \(0\). We would have to use linear programming or something.
+
+Compute
+\[\frac{\partial}{\partial w_i} (w_i^T (M_i^T M_i) w_i + \lambda(1-w_i^T w_i)=  2 \cdot M_i^T M_i w_i - 2 \lambda  \cdot w_i = 0\]
+\[\Rightarrow M_i^T M_i w_i = \lambda w_i\]
+
+This is an eigenvector eigenvalue problem and can solve this easily.

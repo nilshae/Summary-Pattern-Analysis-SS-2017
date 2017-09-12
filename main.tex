@@ -1,19 +1,21 @@
 \documentclass[12p]{article}
+\usepackage[top=3cm, bottom=3cm, left=2cm,right=2cm]{geometry}
+
 \usepackage[utf8]{inputenc}
 
 \usepackage{import}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
+\usepackage{tikz}
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 \usepackage{float}
-% \usepackage[margin=1in]{geometry}
 \usepackage{multirow}
 \usepackage{hyperref}
 
-\title{Skript Pattern Analysis Sommersemester 2017}
-\author{Nils Häusler, Moritz Grand, Adrian Meyer}
+\title{Summary Pattern Analysis\\ Sommersemester 2017}
+\author{Nils Häusler}
 \date{\today}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -33,13 +35,34 @@
 \import{./src/}{density_estimation.tex}
 
 \newpage
+\import{./src/}{parzen_rosenblatt_estimator.tex}
+
+\newpage
 \import{./src/}{mean_shift_algorithm.tex}
 
 \newpage
 \import{./src/}{clustering.tex}
 
 \newpage
+\import{./src/}{dirichlet_process.tex}
+
+\newpage
 \import{./src/}{manifold_learning.tex}
+
+\newpage
+\import{./src/}{k_pca.tex}
+
+\newpage
+\import{./src/}{multi_dimensional_scaling.tex}
+
+\newpage
+\import{./src/}{isomap_algorithm.tex}
+
+\newpage
+\import{./src/}{locally_linear_embedding.tex}
+
+\newpage
+\import{./src/}{laplacian_eigenmaps.tex}
 
 \newpage
 \import{./src/}{random_forest.tex}

@@ -1,10 +1,10 @@
 % !TeX root = ../main.tex
 
-\section{Manifold Learning}
-Principal idea: Reduce the dimensions of the Data, gut preserve the structure of the data / underling manifold.
+\section*{Manifold Learning}
+\paragraph{Principal idea:} Reduce the dimensions of the Data, but preserve the structure of the data / underling manifold.
 
-\subsection{Curse of Dimensionality}
-``Human intuition breaks in high dimensional spaces :(''
+\subsection*{Curse of Dimensionality}
+``Human intuition breaks in high dimensional spaces'' - (Bellman, 1961)
 
 \paragraph{Let's illustrate this:}
 Consider a d-dimensional feature vector $\vec{x_1}, \vec{x_2}, \dots, \vec{x_N} \in \mathbb{R}^d$ where $0 \le x_{i,k} \le 1$ (??? wo kommt das k her) uniformly distributed in a d-dimensional hyperspace of volume 1.
@@ -17,62 +17,14 @@ A 10 dimensional hypercube
     V=s^d \Rightarrow s = V^{\frac{1}{d}} = 0,01^{\frac{1}{10}} = 0.63
 \end{equation*}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-\end{figure}
-
 Another way of thinking about this is, that in a very high dimensional space, virtually every feature point is located at the boundary of the feature space\footnote{Because in at least on dimension, we draw a very low of very high value}. This leads to the effect, that common distance measures loose their  effectivity. E.g. the \textit{median} distance for the nearest neighbour to the origin.
 
-\subsection{Techniques for dimensionality reduction}
-\paragraph{Recap:}
-``Notorious'' example for high dimensional data:
+\paragraph{Example applications:}
+(``Notorious'' examples for high dimensional data)
+
 \begin{itemize}
     \item hyper-spectral remote sensing image classification
     \item satellite image:  perform e.g. agricultural monitoring classify type of vegetation from hyper-spectral (many color channels) image.
 \end{itemize}
 
-Our known approch is PCA.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-\end{figure}
-
-Orthogonal basis that is aligned with the ``maximum spread'' (w.r.t. the covariance) of the data. It is a global unsupervised method\footnote{Operating on all data points, no labels, find one global optimal solution}. Consider that PCA os a linear method.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-\end{figure}
-
-The Kernel PCA performs a non-linear mapping of the data, then perform a standard (linear) PCA on the result. With the kernel-trick we can do that in one step. The Objective function: (the non-linear mapping is part of $\phi$)
-
-\begin{equation*}
-    \delta = sum_{i,j=1}^{N} (\phi(\vec{x_i}) - \phi(\vec{x_j}))^T (\phi(\vec{x_i}) - \phi(\vec{x_j})) + \lambda (\phi^T\phi-1)
-\end{equation*}
-
-Some offsprings of the Kernel PCA idea are:
-\begin{enumerate}
-    \item Perform some preprocessing / mapping that operates non-linearly
-    \item The dimensionality reduction itself is an operation that operates linearly.
-\end{enumerate}
-
-\subsection{Multi Dimensional Scaling (MDS)}
-TODO:
-
-\subsection{ISOMAP Algorithm}
-A non-linearity ``patch'' to MDS
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-\end{figure}
-
-\paragraph{Idea:} Nearby points have their ``usual'' euclidian distance. If a pair of points are not within a local neigbourhood, then the distance between these points is a graph distance\footnote{Compute the all paths shortest path (Dejkstra, A*,  DFS, Floyd–Warshall, ...)}. Then run MDS on the resulting distance Matrix.
-
-\subsection{Locally Linear Embedding (LLE)}
-TODO:
-
-\subsection{Laplacian Eigenmaps}
-TODO:
+In such classification pipelines, dimensionality reduction is often one integral component.
