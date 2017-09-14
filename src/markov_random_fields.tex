@@ -2,16 +2,7 @@
 
 \section*{Markov Random Fields (MRF)}
 
-Geman / Geman introduced MRF to image processing (1985). Example use cases are denoiseing, segmentation or stero matching.
-
-- Consider the pixel gird as a lattice of random variables.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-\end{figure}
-
-More specifically let us asume, that the image $F$ is given by the random matrix $[f_{i,j}]$.
+Example use cases are denoiseing, segmentation or stero matching. \footnote{Geman / Geman introduced MRF to image processing (1985)} Consider the pixel gird as a lattice of random variables. More specifically let us asume, that the image $F$ is given by the random matrix $[f_{i,j}]$.
 
 Assumption: limited statisical depenency (between the pixels)
 
@@ -48,33 +39,27 @@ Pixel gird
 \end{equation*}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-	\caption{4-Neighborhood ($c=1$), 8-Neighborhood ($c=\sqrt{2})$ and dinamic-Neighborhood}
+  \centering
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{mrf_image_example}
+		\caption{The idea of MRF on images the arrows indicate relations}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{mrf_grid_neighborhood}
+		\caption{4-Neighborhood ($c=1$), 8-Neighborhood ($c=\sqrt{2})$ (and dinamic-Neighborhood)}
+  \end{minipage}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-	\caption{Image that explains the idea of MRF on images}
-\end{figure}
+\paragraph{Note:} that the neibhborhoods can also be decomposed in graph Cliques (complete subgraphs) of two. Which is useul later on (factorization + there are solvers for two variables)
 
-
-\paragraph{Graph Clique:} is a Complete subgraph:
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\textwidth]{todo}
-\end{figure}
-
-\paragraph{Gibbs Random Field (GRF):} is given by the PDF ($Z = \sum_{x^\prime} H(x^{\prime})$ is called a partition function and $H(x)$ is an energy function, i.e. a sum of potential functions.)
+\paragraph{Gibbs Random Fields (GRF):} is given by the PDF ($Z = \sum_{x^\prime} H(x^{\prime})$ is called a partition function and $H(x)$ is an energy function, i.e. a sum of potential functions.)
 
 \begin{equation*}
 	p(x) = \frac{1}{Z} e^{-H(x)}
 \end{equation*}
 
 \paragraph{Remark:}
-For a given PDF $p(x)$, the choice of the energy function is not unique. Consider for example
+For a given PDF $p(x)$, the choice of the energy function $H(x)$ is not unique. Consider for example
 
 \begin{equation*}
 	H(x) = - \log p(x) - \log Z
@@ -87,7 +72,6 @@ For a given PDF $p(x)$, the choice of the energy function is not unique. Conside
 $\rightarrow$ we can choose $Z$ arbitarily\\
 
 The interesting theoretical property is that GRFs and MRFs are equivalent. The proof for this is called Hammersley-Clifford Theorem.
-
 
 \paragraph{Example:} Image denoising
 
@@ -105,16 +89,18 @@ $ H([f_{i,j}]) $ (sum of squared gradients, computed over a neighborhood)\\
 Assumption 2: $[g_{i,j}]$ is similar to $[f_{i,j}]$, but corrupted by additive Gaussian noise
 
 \begin{equation*}
-	p([g_{i,j}] | f_{i,j}]) = \prod_{i,j} \frac{1}{\sqrt{2 \pi} G_{i,j}} \exp(- \frac{1}{2 G_{i,j}^2} (f_{i,j} - g_{i,j})^2)
+	p([g_{i,j}] | f_{i,j}]) = \prod_{i,j} \frac{1}{\sqrt{2 \pi} G_{i,j}} \exp(- \frac{1}{2 G_{i,j}^2} \cdot \underset{\text{energy function $H$}}{(f_{i,j} - g_{i,j})^2})
 \end{equation*}
 
-where $(f_{i,j} - g_{i,j})^2$ is the energy function $H$.
-
-With these two functions defined, we can solve for a MAP estimate for $f$ (where $[\hat{f}_{i,j}]$ is the estimated idal image).
+With these two functions defined, we can solve for a MAP estimate for $f$:
 
 \begin{align*}
-	[\hat{f}_{i,j}] &= \argmax_{[f_{i,j}]} p([f_{i,j}] | [g_{i,j}])\\
-					&= \argmax_{[f_{i,j}]} p([g_{i,j}] | [f_{i,j}]) p([f_{i,j}])\\
+	\underset{\text{estimated ideal image}}{[\hat{f}_{i,j}]} &= \argmax_{[f_{i,j}]} p([f_{i,j}] | [g_{i,j}])\\
+					&= \argmax_{[f_{i,j}]} p([g_{i,j}] | [f_{i,j}]) \cdot p([f_{i,j}])\\
 					& \dots\\
 					& \argmin_{[f_{i,j}]} \{ \sum_{i,j} ||\nabla f_{i,j}||_2^2 + \sum_{i,j} \lambda_{i,j} (f_{i,j} - g_{i,j})^2 \}
 \end{align*}
+
+\(||\Delta f_{i,j}||_2^2\): function of clique of size 2
+
+% TODO: Max Flow / Min Cuts

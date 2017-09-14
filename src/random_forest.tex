@@ -2,108 +2,95 @@
 
 \section*{Random Forest}
 
-\textit{What is a random forest?} Is a learing based approach for analysing the feature space, with an ensemble of decision trees.
+Is a learing based approach for analysing the feature space, with an ensemble of decision trees. A decision tree is a binary tree with a "decision"\footnote{"Is this sample on the right side of a hyperplane?"} at every internal and the root node. It's a learning based approach, because good decision functions at the internal nodes are the result of training.
 
-\textit{What is a decision tree?} A binary tree with a "decision" at every internal and the root node. It's a learning based approach, because good decision functions at the internal nodes are the result of training.
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.2\textwidth]{decision_tree}
+% \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.3\textwidth]{decision_tree}
-\end{figure}
+\paragraph{Training:} of a single tree in a forest of size T
+\begin{enumerate}
+  \item Select a number of splitting functions (e.g. hyperplanes or conics, ...)\footnote{simpler functions are typically prefered. Simplest function: "axis aligned split"}
+  \item Evaluate the information gain $I = H_{\text{before}} - H_{\text{after, weighted}}$ for each splitting function \footnote{where \(S_j\) is the data that flows into the node, \(S^L_j S^R_j\) is the data that flows to the left/right and \(H()\) denotes the entropy.}
+  \[I = H(S_j) - \sum_{i \in \{L,R\}} \frac{|S^i_j|}{|S_j|} H(S^i_j)\]
+  \item Set the one with maximum information gain as the current nodes' decision function
+  \item Recursively repeat for the child nodes, until max tree depth (or other stopping criteria\footnote{minimum number of samples for a split}) is reached
+\end{enumerate}
 
+If we have a trained decision tree, we can test it by evaluating the function at the root node.
 
-\textit{What is a decision?} For example the answer to the question: "Is this sample on the right side of a hyperplane?"
+\[h(\vec{x}, \vec{\vartheta}_j): \mathbb{R}^d \times \underset{\text{tree parameters}}{\mathcal{T}} \rightarrow \{0, 1\}\]
 
-\textit{Why an ensemble of trees?} Experience showed that it is complicated to train a single, highly accurate decision tree. The idea of random forests is therefore to train a large number of individually less accurate trees in a ranomized fashion, and to report then an averaged result of this forest.
-If we have a trained decision tree, we can test it by evaluating at the root node a function
-\[h(\vec{x}, \vec{\vartheta}_j): \mathbb{R}^d \times \underset{\text{tree parameters}}{\mathcal{T}} \rightarrow \{0, 1\}.\]
+Depending on the result (0 or 1) we evaluate the test function at either the left successor or the right successor of the root node, and continue down the tree recursively until a terminal/leaf node is reached. This "binary tree paradigm" essentially performs a partitioning of the feature space, where the incoming samples are subdivided into two parts by each internal node.
+The leaf node performs an application-specific action. For example, if the task is to perfom classification, it assigns a label to the sample. Applications differ only in the computation of the information gain (objective function) and the "action" in the leaf node.
 
-Depending on the result (0 or 1) we evaluate the test function at either the left successor or the right successor of the root node, and continue down the tree recursively until a terminal/leaf node is reached.
-The leaf node performs an application-specific action. For example, if the task is to perfom classification, it assigns a label to the sample.
-
-\paragraph{Training:} compute the tree parameters \(\vartheta\), consisting of
+% compute the tree parameters \(\vartheta\), consisting of
+\paragraph{Design parameters are:}
 \begin{itemize}
-    \item the tree height/depth (trade-off\footnote{deeper trees tend to overfitt, can be complemented with increased number of trees,})
-    \item the splitting function at each internal node
-    \item if necessary, the "action" in the leaf node
+  \item the tree height/depth\footnote{ trade-off: deeper trees tend to overfitt, can be complemented with increased number of trees}
+  \item the number of splitting functions at each internal node
+  \item TODO: other parameters
 \end{itemize}
 
-It is important to note that this "binary tree paradigm" essentially performs a partitioning of the feature space. More specifically, each internal node subdivides the incoming samples into two parts.
+\textit{Why an ensemble of trees?} Experience showed that it is complicated to train a single, highly accurate decision tree. The idea of random forests is therefore to train a large number of individually less accurate trees in a ranomized fashion. Because of this randomization, each tree splits at a slightly different location, and thus the discontinuities are ”averaged out” in the forest.
+
+\paragraph{Randomization parameters:} TODO: ...
+\begin{itemize}
+  \item The candidate functions, out of which the best on is chosen  are randomly drawn
+  \item if also linear projection of the data shall be drawn (e.g. consider only dimensions \(\{d_{i_1}, d_{i_2}, \dots, d_{i_n}\}\)
+  \item how the splitting parameters are sampled \footnote{a sparser sampling leads to more "noise"/less optimal results (might be desired, e.g. prevents overfitting).}
+  \item (how many candidate functions are drawn)
+\end{itemize}
+
+\newpage
+\subsection*{Classification Forests}
+Goal: Use the random forest model to train a classifier, which can be used to predict class labels.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.3\textwidth]{space_partitioning}
+  \caption{Possible space partitioning of one tree}
 \end{figure}
 
-\newpage
-\subsection*{Classification Forrests}
-Training of a single tree in a forest of size T
-\begin{enumerate}
-    \item decide for a set of splitting function prototypes, e.g. hyperplanes or conics, ... (simpler functions are typically prefered. Simplest function: "axis aligned split")
-    \item (decide for randomization)
-    \item to find the parameters for the split function, select a suitable \underline{objective function}.
-\end{enumerate}
+The entropy in the classification case is defined as
 
-(3.) "Solid choice": Information Gain \footnote{maximize the Information Gain for a good split} \footnote{where \(S_j\) is the data that flows into the node, \(S^L_j S^R_j\) is the data that flows to the left/right and \(H()\) denotes the entropy. (\textit{Note:} \(I = H_{\text{before}} - H_{\text{after, weighted}}\))}
-
-\[I = H(S_j) - \sum_{i \in \{L,R\}} \frac{|S^i_j|}{|S_j|} H(S^i_j)\]
-
-\[H(S_j) = -\sum_{c \in C} p(c) \cdot log(p(c)))\]
+\[H(S_j) = -\sum_{c \in C} p(c) \cdot log(p(c))\]
 
 where \(c\) denotes the class label, and \(p(c)\) the empirical distribution computed from \(S_j\).
 
-% %Binary entropy function plot
-% \begin{figure}[ht]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{todo}
-% 	\caption{Binary entropy function}
-% \end{figure}
+% TODO: correct information gain
+\[\Rightarrow I = H(S_j) - \sum_{i \in \{L,R\}} \frac{|S^i_j|}{|S_j|} H(S^i_j)\]
 
-(2.) The candidate functions, out of which the best on is chosen with the information gain, are \underline{randomly drawn}. Typically, one decides:
+\paragraph{Training:} basically the same as in the general case, but with the different objective function.
 \begin{itemize}
-    \item how many candidate functions are drawn
-    \item if also linear projection of the data shall be drawn (e.g. consider only dimensions \(\{d_{i_1}, d_{i_2}, \dots, d_{i_n}\}\)
-    \item how the splitting parameters are sampled \footnote{a sparser sampling leads to more "noise"/less optimal results (might be desired, e.g. prevents overfitting).}
+    \item Possible stopping criterion if e.g. 99\% of features in a node belong to one class
+    \item Leaf nodes, report the relative frequencies of the class labels in that node (e.g., 15\%: class 1, 85\% class 2)
 \end{itemize}
 
-Choice of tree depth:
-\begin{itemize}
-    \item set maximum depth ("mandatory")
-    \item optional: set minimum number of samples for split
-    \item depending on the application, stop if for example 99\% of features in a node belong to one class
-\end{itemize}
+The final classifier combines all trees by averaging the individual tree outputs. If a single discrete label is required, decide for the class with maximum probability.
 
-Final classifier output:
-\begin{itemize}
-    \item at a leaf node, report the relative frequencies of the class labels in that node (e.g., 15\%: class 1, 85\% class 2)
-    \item combine al trees by averaging the individual tree outputs. If a single discrete label is required, decide for the class with maximum probability.
-\end{itemize}
-
-Example: Classification (again)
-\begin{enumerate}
-    \item Randomly select a number of splitting functions
-    \item Evaluate the information gain for each splitting function
-    \item Set the function with maximum information gain as the current nodes' decision function
-    \item Recursively repeat for the child nodes, until max tree depth (or some other criterium) is reached
-\end{enumerate}
 
 \newpage
 \subsection*{Regression Forests}
-Goal: predict a \underline{continous} label \(p(y|\vec{x})\). (Remark: choice of the model complexity is related to the bias/variance trade off)
+Goal: Use the random forest model to predict a \underline{continous} label \(p(y|\vec{x})\).
+
+(Remark: choice of the model complexity is related to the bias/variance trade off)
 
 "Leaf prediction model": a base function that is fitted to the samples. The leaf prediction model could be constant (maximise the bias), linear, polynomial, ...
 
-To faithfully represent all of the data with a single function, it would certainly make sense to use a polynomial model, or something even more complex. However, the random idea implies to subdivide/partition the space, and to fit simpler models to the individual partitions. As a specific example, let's split up our input data points:
+To faithfully represent all of the data with a single function, it would certainly make sense to use a polynomial model, or something even more complex. However, the random idea implies to subdivide/partition the space, and to fit simpler models to the individual partitions.
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
-    % \includegraphics[height=4cm]{img/rf_regression.jpg}
-    \includegraphics[height=4cm]{rf_regression}
-	\caption{Regression split}
+  \includegraphics[height=4cm]{rf_regression}
+	\caption{ (Linear) regression split}
 \end{figure}
 
-The decision criterion for the splitting function works analogously to the classification case. The only difference ist that we need to define the entropy \(H(S_j)\) on continous values:
+The decision criterion for the splitting function works analogously to the classification case. The only difference is that we need to define the entropy on continous values:
+
 \[H(S_j) = -\frac{1}{|S_j|} \cdot \sum_{\vec{x} \in S_j} \int_y p(y|x) \cdot log(y|x)dy\]
+
 where \(p(y|x)\) can, e.g. be chosen as a Gaussian distribution \(p(y|x) = \mathcal{N}(y; \overline{y}(x), \sigma_y^2(x))\), where \(\overline{y}(x)\) is a linear function and \(\sigma_y(x)\) is the conditional variance computed from a linear fit.
 
 \begin{figure}[H]
@@ -113,20 +100,25 @@ where \(p(y|x)\) can, e.g. be chosen as a Gaussian distribution \(p(y|x) = \math
 \end{figure}
 
 Combining the expression for \(p(y|x)\) into \(H(S_j)\) yields
+
 \[H(S_j) = \frac{1}{|S_j|} \cdot \sum_{\vec{x} \in S_j} \frac{1}{2} \cdot log((2 \pi e)^2 \sigma_y^2(\vec{x}))\]
+
 \[\Rightarrow I(S_j, \vartheta) = \sum_{\vec{x} \in S_j} log(\sigma_y(\vec{x})) - \sum_{i \in \{L, R\}} (\sum_{x \in S_j^i} log (\sigma_y(\vec{x}))) \]
 
 \newpage
 \subsection*{Density Forests}
-Very same idea, adapted to unlabelled data $\Rightarrow$ learning-baed density estimator.
+Very same idea, adapted to unlabelled data $\Rightarrow$ learning-based density estimator.
 
-Each leaf node is modeled as a multivariate Gaussian distribution. The information gain metric can again be reused, i.e. \(I(S_j, \vartheta) = H(S_j) - \sum_{i \in \{L, R\}} \frac{|S_j^i|}{|S_j|} \cdot H(S_j^i)\) but let us choose \(H(S_j)\) as \footnote{$\Lambda$ is the determinant of the covariance matrix of the data, "volume of a cluster"}
+Each leaf node is modeled as a multivariate Gaussian distribution. The information gain metric can again be reused, but let us choose \(H(S_j)\) defined by $|\Lambda|$ \footnote{$\Lambda$ is the associated $d \times d$ convariance matrix of the data, $|\Lambda|$  can be seen as the "volume of a cluster"}
 \[
   H(S_j) = \frac{1}{2} \cdot log((2 \pi e)^d |\Lambda S_j|)
 \]
 
+\textit{Motivation:}
+Determinant of covariance matrix is a function of the volume of the ellispoid corresponding to that cluster. Maximizing the information gain tends to split the data into a number of compact clusters. The centers of those clusters tend to be placed in areas of high data density, while the separating surfaces are placed along regions of low density.\\
+
 Plugging \(H(S_j)\) back into \(I(S_j, \vartheta)\) yields
-\[I(S_j, \vartheta) = log (|\Sigma(S_j)|) - \sum_{i \in \{L, R\}} \frac{|S_j^i|}{|S_j|} \cdot log(|\Lambda(S_j^i)|)\].
+\[I(S_j, \vartheta) = log (|\Sigma(S_j)|) - \sum_{i \in \{L, R\}} \frac{|S_j^i|}{|S_j|} \cdot log(|\Lambda(S_j^i)|)\]
 
 In each leaf, fit a multivariate Gaussian distribution to the data in that leaf using, e.g. MLE.
 
@@ -135,7 +127,18 @@ In each leaf, fit a multivariate Gaussian distribution to the data in that leaf 
   \includegraphics[width=0.5\textwidth]{desity_forest}
 \end{figure}
 
-\paragraph{Note} that the fitted densities have discontinuities at the splitting boundaries (this is the same type of discontinuity that we observed for regression forests or classification forests). However, remember that the result of a random forest is averaged over all individual trees. Because of randomization, each tree splits at a slightly different location, and thus the discontinuities are "averaged out" in the forest.
+\paragraph{Note} that the fitted densities have discontinuities at the splitting boundaries (this is the same type of discontinuity that we observed for regression forests or classification forests).
+
+\paragraph{Sampling from this generative model}
+\begin{enumerate}
+    \item Draw uniformily a random tree index \(t \in \{1, T\}\) to select a single tree in the forest
+    \item Descend the tree
+        \begin{itemize}
+            \item Starting at the root node, for each split node randomly generate the child index with probability proportional to the number of training points in edge (proportional to edge thickness)
+            \item Repeat step 2 until a leaf is reached
+        \end{itemize}
+    \item At the leaf draw a random sample from the \textit{domain bounded} Gaussian stored at that leaf
+\end{enumerate}
 
 \newpage
 \subsection*{Manifold Forest (Manifold Learning with Random Forests)}
