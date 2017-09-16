@@ -21,9 +21,10 @@
 Let us consider the distance matrix in terms of \(x\):
 \[d_{ij}^2 = (x_i - x_j)^T(x_i - x_j)=x_i^T x_i + x_j^T x_j - 2 x_i x_j\]
 
-In matrix notation,
+In matrix notation,\footnote{where \(diag(A)\) denotes a vector diagonal entries of \(A\), i.e. \(diag(A) = (a_{11}, a_{22}, \dots, a_{NN})^2\)}
+
 \[D^2 = diag(X^T X) \cdot \vec{1}^T + \vec{1} \cdot diag(X^T X)^T - 2X^TX\]
-where \(diag(A)\) denotes a vector diagonal entries of \(A\), i.e. \(diag(A) = (a_{11}, a_{22}, \dots, a_{NN})^2\), and \(\vec{1}\) denotes a vector of ones, i.e. \(\vec{1} = (1,1,\dots,1)^T \in \mathbb{R}^d\).
+
 
 Multiply \(D^2\) from left and right with a centering matrix \(C = (I - \frac{1}{N} \vec{1} \ \vec{1}^T)\), and weight the result by \(-\frac{1}{2}\):
 \begin{align*}

@@ -20,14 +20,14 @@ where $f_{i-1, j} f_{i, j-1} f_{i-1, j-1}$ form a dependency of the neigbours to
 
 Let us consider the features / observations $\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N$
 \begin{enumerate}
-    \item Positivity: $ p(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N) > 0$
-    \item Markokv property: $ p(\vec{x}_k |\vec{x}_1, \dots, \vec{x}_{k-1}, \vec{x}_{k+1}, \dots, \vec{x}_N) = p(\vec{x}_k) | \mathcal{N}(\vec{x}_k)) $, where $\mathcal{N}(\vec{x}_k))$ denotes the neighborhood of $\vec{x}_k$ ($\vec{x}_k$ only depends on its neighbors)
+    \item Positivity:\footnote{For a certain observation the probability is non zero} $ p(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N) > 0$
+    \item Markokv property:\footnote{where $\mathcal{N}(\vec{x}_k))$ denotes the neighborhood of $\vec{x}_k$ ($\vec{x}_k$ only depends on its neighbors)} $ p(\vec{x}_k |\vec{x}_1, \dots, \vec{x}_{k-1}, \vec{x}_{k+1}, \dots, \vec{x}_N) = p(\vec{x}_k) | \mathcal{N}(\vec{x}_k)) $
 \end{enumerate}
 
 Definition of the neighborhood:
 \begin{enumerate}
-	\item $\vec{x}_k \notin \mathcal{N}(\vec{x}_k))$
-	\item $\vec{x}_i \in \mathcal{N}(\vec{x}_k)) \rightarrow \vec{x}_k \in \mathcal{N}(\vec{x}_i))$
+	\item $\vec{x}_k \notin \mathcal{N}(\vec{x}_k)$
+	\item $\vec{x}_i \in \mathcal{N}(\vec{x}_k) \Leftrightarrow \vec{x}_k \in \mathcal{N}(\vec{x}_i)$
 	\item $\mathcal{N}(\vec{x}_k) = \{x_i|0 < dist(x_i, x_k) \le t\}$
 \end{enumerate}
 
@@ -35,7 +35,7 @@ Definition of the neighborhood:
 Pixel gird
 
 \begin{equation*}
-	\mathcal{N}(\vec{x}_{i,j}) = \{x_{k,l}| (i-k)^2 + (j-l)^2 \le c^2, \quad i \not = k \text{ or } j \not = l\}
+	\mathcal{N}(\vec{x}_{i,j}) = \{x_{k,l}| (i-k)^2 + (j-l)^2 \le c^2, \quad i \not = k ; j \not = l\}
 \end{equation*}
 
 \begin{figure}[H]
@@ -84,7 +84,7 @@ Assumption 1: The ideal image is spatially smooth
 \begin{equation*}
 	p(f_{i,j}]) = \frac{1}{Z} e^{-H([f_{i,j}])}, \quad \text{where } H([f_{i,j}]) = \sum_{i,j} ||\nabla f_{i,j}||_2^2
 \end{equation*}
-$ H([f_{i,j}]) $ (sum of squared gradients, computed over a neighborhood)\\
+$ H([f_{i,j}]) $ is sum of squared gradients, computed over a neighborhood (or the sum over all clique potentials)\\
 
 Assumption 2: $[g_{i,j}]$ is similar to $[f_{i,j}]$, but corrupted by additive Gaussian noise
 
@@ -98,7 +98,7 @@ With these two functions defined, we can solve for a MAP estimate for $f$:
 	\underset{\text{estimated ideal image}}{[\hat{f}_{i,j}]} &= \argmax_{[f_{i,j}]} p([f_{i,j}] | [g_{i,j}])\\
 					&= \argmax_{[f_{i,j}]} p([g_{i,j}] | [f_{i,j}]) \cdot p([f_{i,j}])\\
 					& \dots\\
-					& \argmin_{[f_{i,j}]} \{ \sum_{i,j} ||\nabla f_{i,j}||_2^2 + \sum_{i,j} \lambda_{i,j} (f_{i,j} - g_{i,j})^2 \}
+					& \argmin_{[f_{i,j}]} \{ \sum_{i,j} \lambda_{i,j} (f_{i,j} - g_{i,j})^2 + \sum_{i,j} ||\nabla f_{i,j}||_2^2\}
 \end{align*}
 
 \(||\Delta f_{i,j}||_2^2\): function of clique of size 2

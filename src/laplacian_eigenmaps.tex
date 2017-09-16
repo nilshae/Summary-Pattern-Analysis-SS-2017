@@ -13,14 +13,10 @@
 
 \paragraph{Idea:}
 \begin{enumerate}
-    \item
-        Build an adjacency graph on the set of feature points \(S=\{x_1, \dots, x_n\}\)
-    \item
-        Choose weights \(w_{ij}\) for the edges of the graph
-    \item
-        Perform eigendecomposition of the graph Laplacian
-    \item
-        Obtain low-dimensional embedding
+    \item Build an adjacency graph on the set of feature points \(S=\{x_1, \dots, x_n\}\)
+    \item Choose weights \(w_{ij}\) for the edges of the graph
+    \item Perform eigendecomposition of the graph Laplacian
+    \item Obtain low-dimensional embedding
 \end{enumerate}
 Choose the weights as affinities, meaning that closer point pairs have higher weights \(\rightarrow\) points that are closely together in high-dimensional space shall remain close in the lower-dimensional embedding.
 
@@ -32,7 +28,7 @@ $w_{ij} = 1$ if $ ||x-x_j||_2^2 \leq t $ and  $0$ otherwise.
 \paragraph{Ojective function:}
 \[minimize \sum_{i=1}^{N}\sum_{j=1}^{N}||x_i'- x_j'||_2^2 w_{ij} \qquad \text{where} \quad x'\in \mathbb{R}^{d'}, d' \ll d \]
 
-Contraint for optimization: \(x'^T D x' = 1\) (squared distances should add up to 1).
+Constraint for optimization: \(x'^T D x' = 1\) (squared distances should add up to 1).
 
 Relationship of the objective function to the graph Laplacian:
 \begin{align*}
