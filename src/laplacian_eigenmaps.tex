@@ -40,8 +40,8 @@ Relationship of the objective function to the graph Laplacian:
 \[\text{minimize } x'^T L x' \text{ subject to } x'^T D x' = 1:\]
 \begin{align*}
     &\frac{\partial}{\partial x'} (x'^T L x + \lambda (1-x'^T D x'))\\
-    &= 2 2 L x' - \lambda D x' = 0\\
-    &= 2 2 L x' - \lambda D x' = \vec{0}\\
+    &= 2 L x' - \lambda D x' = 0\\
+    &= 2 L x' - \lambda D x' = \vec{0}\\
     Lx' &= \lambda D x'\\
     \Rightarrow D^{-1} L x' &= \lambda x'
 \end{align*}

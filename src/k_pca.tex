@@ -9,7 +9,11 @@ Our known approch is the principle component analysis (PCA).
 	\includegraphics[width=0.8\textwidth]{pca}
 \end{figure}
 
-Orthogonal basis that is aligned with the ``maximum spread'' (w.r.t. the covariance) of the data. It is a global unsupervised method\footnote{Operating on all data points, no labels, find one global optimal solution}. Consider that PCA os a linear method.
+Orthogonal basis that is aligned with the ``maximum spread'' (w.r.t. the covariance) of the data. It is a global unsupervised method\footnote{Operating on all data points, no labels, find one global optimal solution}. Consider that PCA as a linear method.
+
+\begin{equation*}
+    \sum_{i}^{N} (\vec{n}^T \vec{x_i}) (\vec{n}^T \vec{x_i}) + \lambda (\vec{n}^T \vec{n} - 1)
+\end{equation*}
 
 \begin{figure}[H]
 	\centering

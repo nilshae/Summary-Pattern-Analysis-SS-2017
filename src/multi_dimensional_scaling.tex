@@ -19,7 +19,7 @@
 \end{itemize}
 
 Let us consider the distance matrix in terms of \(x\):
-\[d_{ij}^2 = (x_i - x_j)^T(x_i - x_j)=x_i^T x_i + x_j^T x_j - 2 x_i x_j\]
+\[d_{ij}^2 = (x_i - x_j)^T(x_i - x_j)=x_i^T x_i - 2 x_i^T x_j + x_j^T x_j \]
 
 In matrix notation,\footnote{where \(diag(A)\) denotes a vector diagonal entries of \(A\), i.e. \(diag(A) = (a_{11}, a_{22}, \dots, a_{NN})^2\)}
 
@@ -38,9 +38,9 @@ This is a matrix factorization problem. If we compute the eigenvector-eigenvalue
 MDS is essentially the same thing as PCA, but it operates on distances. We can reduce the dimensionality of our data by:
 \begin{itemize}
     \item
-        Determining the \(m\) largest eigennvalues and their corresponding eigenvectors
+        Determining the \(d\) largest eigennvalues and their corresponding eigenvectors
     \item
         Dropping the remaining eigenvalue and eigennvectors inside the multiplication
 \end{itemize}
 
-We can calculate \(\frac{\sum_{i=1}^p \lambda_i}{\sum_{i=1}^{n-1} \lambda_i}\), which expresses the proportioin of variance explained by \(p\) dimensions.
+% We can calculate \(\frac{\sum_{i=1}^p \lambda_i}{\sum_{i=1}^{n-1} \lambda_i}\), which expresses the proportioin of variance explained by \(p\) dimensions.
