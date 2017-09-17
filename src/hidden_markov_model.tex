@@ -21,7 +21,7 @@ A HMM models the joint probability (generative!) of hidden states and a sequence
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\textwidth]{hmm.jpg}
-	\caption{We can represent a HMM as an graphical model similar to a state machine.}
+	\caption{We can represent a HMM as a graphical model similar to a state machine.}
 \end{figure}
 
 \paragraph{Questions we can ask with an HMM}
@@ -32,15 +32,33 @@ A HMM models the joint probability (generative!) of hidden states and a sequence
 	\item How can we obtain the model parameters \(\lambda\) in a fully automated way (training)?
 \end{enumerate}
 
-\paragraph{(1) Probability of an observation, given HMM \& known state sequence:} \emph{Forward-/Backward-Algorithm}
+\subsection*{Question (1), probability of an observation: \emph{Forward-/Backward-Algorithm}}
+
+Marginalize over all state sequences \footnote{The sums enumerate all possible state sequences; The products represent \(p(<S_1,\dots,S_M>) \cdot (p(<o_1,\dots, o_M>|<S_1,\dots,S_M>)\)}:
+\[p(<o_1,\dots,o_M> = \sum_{S_1=1}^{N} \sum_{S_2=1}^{N} \dots \sum_{S_M=1}^{N} \pi_{S_1} \cdot \prod_{i=1}^{M-1} a_{S_i S_{i+1}} \cdot \prod_{i=1}^{M} b_{S_i}(o_i)\]
+
+Problems with implementation:
+\begin{itemize}
+	\item Multiplying many small values will cause precision problems
+	\item The sums will create M for loops in an implementation
+	\item Computing cost: \(O(N^M)\)
+	\item Solution: dynamic programming \& Forward-/Backward Algorithm
+\end{itemize}
+
+\paragraph{Forward Algorithm} TODO
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{forward.jpg}
+\end{figure}
+
+\paragraph{Backward Algorithm} TODO
+
+\subsection{Question (2), most likely state sequence: \emph{Viterbi Algorithm}}
 
 TODO
 
-\paragraph{(2) Most likely state sequence} \emph{Viterbi Algorithm}
-
-TODO
-
-\paragraph{(3) How to train a HMM} \emph{Baum-Welch-Algorithm}
+\subsection{Question (3), how to train a HMM: \emph{Baum-Welch-Algorithm}}
 
 TODO
 
