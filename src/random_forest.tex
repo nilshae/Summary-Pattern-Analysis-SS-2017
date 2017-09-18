@@ -170,12 +170,12 @@ However if the affinities are averaged over the whole forest, all points become 
 
 \paragraph{Note} that the graph Laplacian in Ciminisi/Shotton  are differently normalized, but it is the same algorithm:
 \[L = I - \Gamma^{-\frac{1}{2}} A \Gamma^{-\frac{1}{2}}\]
-where \(\Gamma = D = \sum A_{ij}\) denotes the sum of the weights for sample \(x_i\).\footnote{just for normalization}
+where \(\Gamma = D = \sum_{i,j} A_{ij}\) denotes the sum of the weights for sample \(x_i\).\footnote{just for normalization}
 
 \bigbreak
 \(\Rightarrow\): analogous to LE eigenvalue decomposition, arrange \(d'\) eigenvectors that are associated with the lowest eigenvalues in a matrix $E$.
 
-\[E = (e_1, e_2, \dots, e_{d'})\]
+\[E = (\vec{e_1}, \vec{e_2}, \dots, \vec{e_{d'}})\]
 
 The projection of \(x_i\) onto a \(d'\) dimensional space just corresponds to the \(i\)-th row of \(E\). (note: drop the first eigenvector, where the eigenvalue is 0)
 

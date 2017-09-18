@@ -139,3 +139,9 @@ Let \(G, H\) represent two groups. The dissimilarity \(d(G,H)\) is computed from
 \paragraph{Note:}
 We have several options for clustering data. K-means and its variants are straight forward and easy to understand, but if the proper number of clusters is part of the unknowns, it may be a suboptimal choice.
 One alternative is mean shift clustering. Here is the number of clusters determined implicitly by the kernel type and size plus the type of bump post process.
+
+
+
+\textit{Addendum} to our Section on clustering: "Spectral clustering" is essentially executing Laplacian Eigenmaps + \(k\)-Means on the lower dimensional space.
+
+How to choose a appropriate \(d'\)? The distribution of the eigenvalues gives an indication about the "intrinsic" dimensionality of the data. If there is a certain gap between eigenvalue, this is a good indication. We don't have this available when using LLE.

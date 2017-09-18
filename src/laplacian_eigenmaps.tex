@@ -2,60 +2,46 @@
 
 \subsection*{Laplacian Eigenmaps}
 
-% \textbf{Graph Laplacian:} Matrix representation of a graph. There are many other ways to do this.
-%
-% \[L = (D - W), \]
-% where \(D\) is a diagonal matrix with entries \[d_{ij} = \begin{cases} \sum_{k=1}^N w_{ik} & if \ i=j \\ 0 & if \ i \neq j \end{cases}\] and \(W\) is the adjacency matrix \[w_{ij} = \begin{cases} \text{weight between nodes i and j} & if \ i\neq j \\ 0 & if \ i = j\end{cases}\]
-%
-% We exclude self-loops here. D is there for normalization. This results in a matrix, which row sum equals \(0\) (\(\sum_{k=1}^N l_{ik} = 0\)).
-%
-% The graph Laplacian is a popular tool to operate on graphs with methods from linear algebra (\(\rightarrow\) this is a topic in "spectral graph theory").
-
-\paragraph{Idea:}
+\paragraph{Idea:} TODO: add short description from lecture
 \begin{enumerate}
-    \item Build an adjacency graph on the set of feature points \(S=\{x_1, \dots, x_n\}\)
-    \item Choose weights \(w_{ij}\) for the edges of the graph
+    \item Build an adjacency graph on the set of feature points \(S=\{\vec{x_1}, \dots, \vec{x_n}\}\). We use the \textbf{Graph Laplacian} \footnote{Matrix representation of a graph} $L$.
+
+      \[L = (D - W)\]
+
+      where \(D\) is a diagonal matrix which is there for normalization\footnote{row sums up to zero \(0\) (\(\sum_{k=1}^N l_{ik} = 0\))} and \(W\) is the adjacency matrix.
+
+      \[d_{ij} = \begin{cases} \sum_{k=1}^N w_{ik} & if \ i=j \\ 0 & if \ i \neq j \end{cases}
+        \qquad \qquad w_{ij} = \begin{cases} \text{weight between nodes i and j} & if \ i\neq j \\ 0 & if \ i = j\end{cases}\]
+
+    \item Compute affinities as weights \(w_{ij}\) for the edges of the graph, such that closer point pairs have higher weights. One common choice for the weights is the so-called heat kernel or just binary affinity.
+
+      \[w_{ij} = \begin{cases} e^{-||\vec{x_i} - \vec{x_j}||_2^2}  & if \ i\neq j \\ 0 & if \ i = j\end{cases}
+        \qquad \qquad w_{ij} = \begin{cases} 1 & if \ ||x-\vec{x_j}||_2^2 \leq t \\ 0 & otherwise \end{cases}\]
+
     \item Perform eigendecomposition of the graph Laplacian
-    \item Obtain low-dimensional embedding
+
+      \[\Rightarrow \boxed{D^{-1} L \vec{x_i'} = \lambda \vec{x_i'}}\]
+
+    \item Obtain low-dimensional embedding by selecting a ordered subset of eigenvectors from the decomposition.
+    \begin{itemize}
+        \item Discard the eigenvalue/eigenvector pair for the lowest eigenvalues\footnote{The number of eigenvalues depends on the connected components in the graph} (the 0 eigenvalue)
+        \item The \(d'\) next smallest eigenvalue/eigenvector pairs form the lower dimensional embedding: \(i\)th row of \(E = (\vec{e_1}, \vec{e_2}, \dots, \vec{e_{d'}})\) equals  \(\vec{x_i}'^T\) which represents the lower dimensioanl embedding of \(\vec{x_i}^T\).
+    \end{itemize}
 \end{enumerate}
-Choose the weights as affinities, meaning that closer point pairs have higher weights \(\rightarrow\) points that are closely together in high-dimensional space shall remain close in the lower-dimensional embedding.
 
-One common choice for the weights is the so-called heat kernel \(w_{ij} = e^{-||x_i - x_j||_2^2}\), or just binary affinity
-$w_{ij} = 1$ if $ ||x-x_j||_2^2 \leq t $ and  $0$ otherwise.
+\paragraph{Relationship of the objective function to the graph Laplacian L:}
+\[min \sum_{i=1}^{N}\sum_{j=1}^{N}||\vec{x_i}'- \vec{x_j}'||_2^2 w_{ij} \qquad \text{ subject to\footnote{squared distances should add up to 1} } x'^T D x' = 1 \]
 
-\bigbreak
+where $ x'\in \mathbb{R}^{d'}, d' \ll d$.
 
-\paragraph{Ojective function:}
-\[minimize \sum_{i=1}^{N}\sum_{j=1}^{N}||x_i'- x_j'||_2^2 w_{ij} \qquad \text{where} \quad x'\in \mathbb{R}^{d'}, d' \ll d \]
+\begin{equation*}
+    = \sum_{i,j} (\vec{x_i}'^T \vec{x_i}' - 2 \vec{x_i}'^T \vec{x_j}' + \vec{x_j}'^T \vec{x_j}') w_{ij} = 2 \cdot x'^T (D-W) x'
+\end{equation*}
 
-Constraint for optimization: \(x'^T D x' = 1\) (squared distances should add up to 1).
-
-Relationship of the objective function to the graph Laplacian:
+\[min \ x'^T L x' \qquad \text{ subject to } x'^T D x' = 1\]
 \begin{align*}
-    \sum_{i,j} ||x_i' - x_j'||_2^2 w_{ij} &= \sum_{i,j} (x_i'^T x_i' + x_j'^T x_j' - 2 x_i'^T x_j') w_{ij} = (2\cdot \sum_{i,j=1}^N(x_i'^T x_i') \cdot w_{ij}) - (2 \cdot \sum_{i,j} x_i'^T x_j' w_{ij})\\
-    &= (2 \cdot \sum_{i=1}^N x_i'^T x_i' \cdot (\sum_{j=1}^N w_{ij}))- (2 \cdot \sum_{i,j} x_i'^T x_j' w_{ij})\\
-    &= 2 x'^T D x' - x'^TWx' = 2 \cdot x'^T (D-W) x'
-\end{align*}
-
-\[\text{minimize } x'^T L x' \text{ subject to } x'^T D x' = 1:\]
-\begin{align*}
-    &\frac{\partial}{\partial x'} (x'^T L x + \lambda (1-x'^T D x'))\\
-    &= 2 L x' - \lambda D x' = 0\\
-    &= 2 L x' - \lambda D x' = \vec{0}\\
+    \frac{\partial}{\partial x'} (x'^T L x + \lambda (1-x'^T D x')) &= \vec{0}\\
+     2 L x' - \lambda D x' &= \vec{0}\\
     Lx' &= \lambda D x'\\
-    \Rightarrow D^{-1} L x' &= \lambda x'
+    \Rightarrow \boxed{D^{-1} L \vec{x'} = \lambda \vec{x'}}
 \end{align*}
-
-On 4.) The lower-dimensional embedding is obtained by selecting a ordered subset of eigenvectors from that decomposition.
-\begin{itemize}
-    \item
-        Sort eigenvectors by the magnitude of their associated eigenvalues
-    \item
-        Discard the eigenvalue/eigenvector pair for the lowest eigenvalues (the 0 eigenvalue) (number of values depends on connected components in graph)
-    \item
-        The \(d'\) next smallest eigenvalue/eigenvector pairs (\(e_1, e_2, \dots\)) form the lower -dimensionanl embedding: \(i\)th row of \((e_1, e_2, ... e_d)\) represents the lower dimensioanl embedding of \(x_i^T\).
-\end{itemize}
-
-\textit{Addendum} to our Section on clustering: "Spectral clustering" is essentially executing Laplacian Eigenmaps + \(k\)-Means on the lower dimensional space.
-
-How to choose a appropriate \(d'\)? The distribution of the eigenvalues gives an indication about the "intrinsic" dimensionality of the data. If there is a certain gap between eigenvalue, this is a good indication. We don't have this available when using LLE.

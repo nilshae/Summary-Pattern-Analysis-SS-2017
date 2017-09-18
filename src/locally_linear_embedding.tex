@@ -3,11 +3,11 @@
 
 \subsection*{Locally Linear Embedding (LLE)}
 
-\paragraph{Idea:} Describe each point \(\vec{x_i}\) as linear combination of its local neighborhood \footnote{ This makes the mapping an overall non-linear mapping consisting of small linear patches}. This way we maintain the weights inside the local neighborhood. In the lower dimension we can then linearly interpolate a point \(\vec{x_{i}'}\) from its neighbors weights.
+\paragraph{Idea:} Describe each point \(\vec{x_i}\) as linear combination of its local neighborhood \footnote{ This makes the mapping an overall non-linear mapping consisting of small linear patches}.
 
-\[\vec{x_i} = \sum_{\vec{x_j} \in N(\vec{x_i}), j \neq i} w_{ij} \vec{x_j} \qquad \text{ subject to } \sum_j w_{ij} = 1\]
+\[\vec{x_i} = \sum_{j \in N(\vec{x_i}), j \neq i} w_{ij} \vec{x_j} \qquad \text{ subject to } \sum_j w_{ij} = 1\]
 
-and search points \(x'\) in a lower dimensional space, such that $\vec{x_i}' = \sum_{j \in N(\vec{x_i}')} w_{ij} \vec{x_j}'$
+This way we maintain the weights inside the local neighborhood. In the lower dimension we can then linearly interpolate a point \(\vec{x_{i}'}\) from its neighbors weights. $\vec{x_i}' = \sum_{j \in N(\vec{x_i}')} w_{ij} \vec{x_j}'$
 
 \paragraph{Algorithm:}
 \begin{enumerate}
@@ -17,15 +17,14 @@ and search points \(x'\) in a lower dimensional space, such that $\vec{x_i}' = \
         \[min \sum_{i}||\vec{x_i} - \sum_{j\in N(\vec{x_i})} w_{ij} \vec{x_j}||_2^2 \qquad \text{ subject to } \sum_{j \in N(\vec{x_i})} w_{ij}^2 = 1\]
 
 
-        Note the objective function is \underline{invariant} to translation, therefore:
+        Note the objective function is \underline{invariant} to translation, therefore we can move each point $\vec{x_i}$ and its neigborhood to the origin
+
         \begin{equation*}
-            \sum_{i} ||(\vec{x_i} - \vec{t}) - \sum_j w_{ij} (\vec{x_j} - \vec{t})||_2^2
+            = min \sum_{i} ||- \sum_j w_{ij} (\vec{x_j} - \vec{x_i})||_2^2
         \end{equation*}
 
-        set $\vec{x_i} = \vec{t} \Rightarrow$
-
         \begin{equation*}
-            \sum_{i} ||- \sum_j w_{ij} (\vec{x_j} - \vec{x_i})||_2^2 = \sum_{i} ||M_i\vec{w_i}||_2^2
+          = min \sum_{i} ||M_i\vec{w_i}||_2^2
         \end{equation*}
 
         where $M_i = \left(\begin{array}{cccc} \vec{x_1} - \vec{x_i} & \vec{x_2} - \vec{x_i}& \dots& \vec{x_N} - \vec{x_i} \end{array}\right)$\footnote{differences \(\vec{x_j} - \vec{x_i} = 0\) for \(\vec{x_j}\) outside the neighborhood of \(\vec{x_i}\)}
@@ -38,9 +37,11 @@ and search points \(x'\) in a lower dimensional space, such that $\vec{x_i}' = \
         \[\frac{\partial}{\partial \vec{w_i}} (\vec{w_i}^T M_i^T M_i \vec{w_i} + \lambda(1-w_i^T \vec{w_i})=  2 \cdot M_i^T M_i \vec{w_i} - 2 \lambda  \cdot \vec{w_i} = 0\]
         \[\Rightarrow \boxed{M_i^T M_i \vec{w_i} = \lambda \vec{w_i}}\]
 
-        This is an eigenvector eigenvalue problem and can solve this easily.
+        This is an eigenvector eigenvalue problem.
 
     \item Reconstruct the lower dimensional embedding by solving for \(\vec{x_i}' \in \mathbb{R}^{d'} (d' \ll d)\):
         \[min \sum_i ||\vec{x_i}' - \sum_{j \in N(\vec{x_i})} w_{ij} \vec{x_j}'||_2^2 \qquad \text{ subject to } \frac{1}{N} \sum_i \vec{x_i}' \vec{x_i}'^T = I, \sum_i \vec{x_i}' = \vec{0}\]
-        The first constraint says that the covariance is the identity. Which basically fixes the volume. The second one centers the samples.
+        The first constraint says that the covariance is the identity. Which basically fixes the volume. The second one centers the samples. This again boils down to an eigenvector eigenvalue problem, where $M = (I - W)^T (I - W)$
+
+          \[\Rightarrow \boxed{M \vec{x_i} = \lambda \vec{x_i}}\]
 \end{enumerate}

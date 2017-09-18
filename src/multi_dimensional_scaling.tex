@@ -7,11 +7,11 @@
 \begin{itemize}
     \item  Let \(X\) denote a matrix consisting of all samples, \(X=[\vec{x_1}, \dots, \vec{x_N}] \in \mathbb{R}^{d \times N}\)
     \item  Let \(D^2 = [d_{ij}^2]_{i, j \in \{1, \dots, N\}}\), where \(d_{ij}^2 = (\vec{x_i} - \vec{x_j})^T (\vec{x_i} - \vec{x_j})\)
-    \item  We assume that \(\vec{x_1}, \dots, \vec{x_N}\) have zero mean i.e. \(\sum_{i=1}^N \vec{x_i} = 0\) % TODO: check formula
+    \item  We assume that \(\vec{x_1}, \dots, \vec{x_N}\) have zero mean i.e. \(\sum_{i=1}^N \vec{x_i} = \vec{0}\)
     \item  Goal: Given \(D^2\), compute \(X\)
 \end{itemize}
 
-Let us consider the distances in terms of \(x\):
+Let us consider the distances in terms of \(\vec{x}\)
 \[d_{ij}^2 = (\vec{x_i} - \vec{x_j})^T(\vec{x_i} - \vec{x_j})=\vec{x_i}^T \vec{x_i} - 2 \vec{x_i}^T \vec{x_j} + \vec{x_j}^T \vec{x_j} \]
 
 In matrix notation,\footnote{where \(diag(A)\) denotes a vector diagonal entries of \(A\), i.e. \(diag(A) = (a_{11}, a_{22}, \dots, a_{NN})^2\)}
@@ -19,7 +19,8 @@ In matrix notation,\footnote{where \(diag(A)\) denotes a vector diagonal entries
 \[D^2 = diag(X^T X) \cdot \vec{1}^T - 2X^TX + \vec{1} \cdot diag(X^T X)^T\]
 
 
-Multiply \(D^2\) from left and right with a centering matrix \(C = (I - \frac{1}{N} \vec{1} \ \vec{1}^T)\), and weight the result by \(-\frac{1}{2}\):
+Multiply \(D^2\) from left and right with a centering matrix \(C = (I - \frac{1}{N} \vec{1} \ \vec{1}^T)\), and weight the result by \(-\frac{1}{2}\)
+
 \begin{align*}
     -\frac{1}{2} C D^2 C &= -\frac{1}{2} (I- \frac{1}{N} \vec{1} \ \vec{1}^T) (diag(X^T X) \cdot \vec{1}^T - 2X^TX + \vec{1} \cdot diag(X^T X)^T)(I- \frac{1}{N} \vec{1} \ \vec{1}^T)\\
     &= \dots (\text{because of the zero mean assumtion this breaks down to}) \\
