@@ -2,45 +2,42 @@
 
 \subsection*{Multi Dimensional Scaling (MDS)}
 
-\textit{Task:} Reconstruct a set of points (potentially in a lower dimension) from their differences. MDS computes the "best" (in a least square sense) coordinates up to rotation, translation and mirroring (axis reversal).
+\paragraph{Idea:} Reconstruct a set of points (potentially in a lower dimension) from their differences.\footnote{MDS computes the "best" (in a least square sense) coordinates up to rotation, translation and mirroring (axis reversal).}
 
-\textit{Mathmatical problem formulation:}
 \begin{itemize}
-    \item
-        Let \(S = \{x_1, \dots, x_N\}, x_i \in \mathbb{R}^d\).
-    \item
-        Let \(X\) denote a matrix consisting of all samples, \(X=[x_1, \dots, x_N] \in \mathbb{R}^{d \times N}\).
-    \item
-        Let \(D^2 = [d_{ij}^2]_{i, j \in \{1, \dots, N\}}\), where \(d_{ij}^2 = (x_i - x_j)^T (x_i - x_j)\).
-    \item
-        Goal: Given \(D^2\), compute \(X\).
-    \item
-        We assume that \(x_1, \dots, x_N\) have zero mean i.e. \(\sum_{i=1}^N x_i = 0\)
+    \item  Let \(X\) denote a matrix consisting of all samples, \(X=[\vec{x_1}, \dots, \vec{x_N}] \in \mathbb{R}^{d \times N}\)
+    \item  Let \(D^2 = [d_{ij}^2]_{i, j \in \{1, \dots, N\}}\), where \(d_{ij}^2 = (\vec{x_i} - \vec{x_j})^T (\vec{x_i} - \vec{x_j})\)
+    \item  We assume that \(\vec{x_1}, \dots, \vec{x_N}\) have zero mean i.e. \(\sum_{i=1}^N \vec{x_i} = 0\) % TODO: check formula
+    \item  Goal: Given \(D^2\), compute \(X\)
 \end{itemize}
 
-Let us consider the distance matrix in terms of \(x\):
-\[d_{ij}^2 = (x_i - x_j)^T(x_i - x_j)=x_i^T x_i - 2 x_i^T x_j + x_j^T x_j \]
+Let us consider the distances in terms of \(x\):
+\[d_{ij}^2 = (\vec{x_i} - \vec{x_j})^T(\vec{x_i} - \vec{x_j})=\vec{x_i}^T \vec{x_i} - 2 \vec{x_i}^T \vec{x_j} + \vec{x_j}^T \vec{x_j} \]
 
 In matrix notation,\footnote{where \(diag(A)\) denotes a vector diagonal entries of \(A\), i.e. \(diag(A) = (a_{11}, a_{22}, \dots, a_{NN})^2\)}
 
-\[D^2 = diag(X^T X) \cdot \vec{1}^T + \vec{1} \cdot diag(X^T X)^T - 2X^TX\]
+\[D^2 = diag(X^T X) \cdot \vec{1}^T - 2X^TX + \vec{1} \cdot diag(X^T X)^T\]
 
 
 Multiply \(D^2\) from left and right with a centering matrix \(C = (I - \frac{1}{N} \vec{1} \ \vec{1}^T)\), and weight the result by \(-\frac{1}{2}\):
 \begin{align*}
-    -\frac{1}{2} C D^2 C &= -\frac{1}{2} (I- \frac{1}{N} \vec{1} \ \vec{1}^T) (diag(X^T X) \cdot \vec{1}^T + \vec{1} \cdot diag(X^T X)^T - 2X^TX)(I- \frac{1}{N} \vec{1} \ \vec{1}^T)\\
-    &= \dots (\text{see lecture, too lazy}) \\
+    -\frac{1}{2} C D^2 C &= -\frac{1}{2} (I- \frac{1}{N} \vec{1} \ \vec{1}^T) (diag(X^T X) \cdot \vec{1}^T - 2X^TX + \vec{1} \cdot diag(X^T X)^T)(I- \frac{1}{N} \vec{1} \ \vec{1}^T)\\
+    &= \dots (\text{because of the zero mean assumtion this breaks down to}) \\
     &= X^T X
 \end{align*}
 
-This is a matrix factorization problem. If we compute the eigenvector-eigenvalue decomposition (we can do this because its an square matrix) of \(X^T X\) we get \(U \Sigma U^T \Rightarrow X = \Sigma^{\frac{1}{2}} U^T\).
+Obtaining $X$ is a matrix factorization problem, which we can solve by computing the eigenvector-eigenvalue decomposition\footnote{we can do this because its an square matrix} of \(X^T X\). Therefore MDS breaks down to:
 
-MDS is essentially the same thing as PCA, but it operates on distances. We can reduce the dimensionality of our data by:
+\[ \boxed{SVD(-\frac{1}{2} C D^2 C) = U \Sigma U^T}\]
+
+\[ \Rightarrow X = \Sigma^{\frac{1}{2}} U^T \]
+
+We can reduce the dimensionality of our data by:
 \begin{itemize}
-    \item
-        Determining the \(d\) largest eigennvalues and their corresponding eigenvectors
-    \item
-        Dropping the remaining eigenvalue and eigennvectors inside the multiplication
+    \item Determining the \(d\) largest eigennvalues and their corresponding eigenvectors
+    \item Dropping the remaining eigenvalue and eigennvectors inside the multiplication
 \end{itemize}
+
+MDS is essentially the same thing as PCA, but it operates on distances.
 
 % We can calculate \(\frac{\sum_{i=1}^p \lambda_i}{\sum_{i=1}^{n-1} \lambda_i}\), which expresses the proportioin of variance explained by \(p\) dimensions.

@@ -7,15 +7,10 @@
 ``Human intuition breaks in high dimensional spaces'' - (Bellman, 1961)
 
 \paragraph{Let's illustrate this:}
-Consider a d-dimensional feature vector $\vec{x_1}, \vec{x_2}, \dots, \vec{x_N} \in \mathbb{R}^d$ where $0 \le x_{i,k} \le 1$ (??? wo kommt das k her) uniformly distributed in a d-dimensional hyperspace of volume 1.
-Let's say we would like to cover enough volume of  the cube to collect $1\%$ of the data. Let's say we also use a cube for this task. What is the required edge length $s$ of the cube to obtain that $1\%$ of space?
+Consider a d-dimensional feature vector $\vec{x_1}, \vec{x_2}, \dots, \vec{x_N} \in \mathbb{R}^d$ where $0 \le x_i \le 1$ uniformly distributed in a d-dimensional hyperspace of volume 1.
+Let's say we would like to cover enough volume of  the cube to collect $1\%$ of the data. Let's say we also use a cube for this task. What is the required edge length $s$ of the cube to obtain that $1\%$ of space?\\
 
-\paragraph{Example:}
-A 10 dimensional hypercube
-
-\begin{equation*}
-    V=s^d \Rightarrow s = V^{\frac{1}{d}} = 0,01^{\frac{1}{10}} = 0.63
-\end{equation*}
+\textbf{Example} for a 10 dimensional hypercube $V=s^d \Rightarrow s = V^{\frac{1}{d}} = 0,01^{\frac{1}{10}} = 0.63$\\
 
 Another way of thinking about this is, that in a very high dimensional space, virtually every feature point is located at the boundary of the feature space\footnote{Because in at least one dimension, we draw a very low of very high value}. This leads to the effect, that common distance measures loose their  effectivity. E.g. the \textit{median} distance for the nearest neighbour to the origin.
 
@@ -28,3 +23,20 @@ Another way of thinking about this is, that in a very high dimensional space, vi
 \end{itemize}
 
 In such classification pipelines, dimensionality reduction is often one integral component.
+
+\subsubsection*{Additional notes}
+\begin{itemize}
+    \item Manifold learning algorithms are based on the idea that the dimensionality of many data sets is only artificially high. Although the data points may consist of thousands of features, they may be described as a function of only a few underlying parameters. That is, the data points are actually sampled from a low-dimensional manifold that is embedded in a high dimensional space. Manifold learning algorithms attempt to uncover these parameters in order to find a low-dimensional representation of the data.
+    \item Error function: \[E = ||\text{inner product distances in graph} - \text{inner product distances in new coordinate system}||_{L_2}\]
+    \item Finding optimal dimensionality: Look at residual variance (or error) (depending on \(d\)) and search for "elbow" at which the curve ceases to decrease significanlty with added dimensions. (PCA/MDS tend to overestimate dimensionality)
+    \item PCA and MDS are guaranteed, given sufficient data, to recover the true structure of linear manifolds
+    \item ISOMAP is guaranteed asymptotically to recover the true dimensionality and geometric structure of a strictly larger class of nonlinear manifolds, which intrinsic geometry is that of a convex region of Euclidean space
+    \item ISOMAP is a polynomial time, noniterative procedure which guarantees global optimality
+    \item Possible problems:
+
+        \begin{itemize}
+            \item If \(k\) for \(k\)-NN is to large, or noise in the data moves the points slightly off the manifold, ISOMAP is vulnerable to "short-circuiut error", where even single errors can alter the low-dim embedding drastically
+            \item If \(k\) is to small, the neighborhood graph may become too sparse to approximate geodesic paths accuratly
+        \end{itemize}
+
+\end{itemize}
