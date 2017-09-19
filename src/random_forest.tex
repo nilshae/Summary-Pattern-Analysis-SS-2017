@@ -12,7 +12,7 @@ Is a learing based approach for analysing the feature space, with an ensemble of
 \paragraph{Training:} of a single tree in a forest of size T
 \begin{enumerate}
   \item Select a number of splitting functions (e.g. hyperplanes or conics, ...)\footnote{simpler functions are typically prefered. Simplest function: "axis aligned split"}
-  \item Evaluate the information gain $I = H_{\text{before}} - H_{\text{after, weighted}}$ for each splitting function \footnote{where \(S_j\) is the data that flows into the node, \(S^L_j S^R_j\) is the data that flows to the left/right and \(H()\) denotes the entropy.}
+  \item Evaluate the information gain $I = H_{\text{before}} - H_{\text{after-l, weighted}} - H_{\text{after-r, weighted}}$ for each splitting function \footnote{where \(S_j\) is the data that flows into the node, \(S^L_j S^R_j\) is the data that flows to the left/right and \(H()\) denotes the entropy.}
   \[I = H(S_j) - \sum_{i \in \{L,R\}} \frac{|S^i_j|}{|S_j|} H(S^i_j)\]
   \item Set the one with maximum information gain as the current nodes' decision function
   \item Recursively repeat for the child nodes, until max tree depth (or other stopping criteria\footnote{minimum number of samples for a split}) is reached
@@ -23,19 +23,19 @@ If we have a trained decision tree, we can test it by evaluating the function at
 \[h(\vec{x}, \vec{\vartheta}_j): \mathbb{R}^d \times \underset{\text{tree parameters}}{\mathcal{T}} \rightarrow \{0, 1\}\]
 
 Depending on the result (0 or 1) we evaluate the test function at either the left successor or the right successor of the root node, and continue down the tree recursively until a terminal/leaf node is reached. This "binary tree paradigm" essentially performs a partitioning of the feature space, where the incoming samples are subdivided into two parts by each internal node.
-The leaf node performs an application-specific action. For example, if the task is to perfom classification, it assigns a label to the sample. Applications differ only in the computation of the information gain (objective function) and the "action" in the leaf node.
+The leaf node performs an application-specific action. For example, if the task is to perform classification, it assigns a label to the sample. Applications differ only in the computation of the information gain (objective function) and the "action" in the leaf node.
 
 % compute the tree parameters \(\vartheta\), consisting of
 \paragraph{Design parameters are:}
 \begin{itemize}
-  \item the tree height/depth\footnote{ trade-off: deeper trees tend to overfitt, can be complemented with increased number of trees}
+  \item the tree height/depth\footnote{ trade-off: deeper trees tend to overfit, can be complemented with increased number of trees}
   \item the number of splitting functions at each internal node
-  \item TODO: other parameters
+  \item number of trees
 \end{itemize}
 
-\textit{Why an ensemble of trees?} Experience showed that it is complicated to train a single, highly accurate decision tree. The idea of random forests is therefore to train a large number of individually less accurate trees in a ranomized fashion. Because of this randomization, each tree splits at a slightly different location, and thus the discontinuities are ”averaged out” in the forest.
+\textit{Why an ensemble of trees?} Experience showed that it is complicated to train a single, highly accurate decision tree. The idea of random forests is therefore to train a large number of individually less accurate trees in a randomized fashion. Because of this randomization, each tree splits at a slightly different location, and thus the discontinuities are ”averaged out” in the forest.
 
-\paragraph{Randomization parameters:} TODO: ...
+\paragraph{Randomization parameters:}
 \begin{itemize}
   \item The candidate functions, out of which the best on is chosen  are randomly drawn
   \item if also linear projection of the data shall be drawn (e.g. consider only dimensions \(\{d_{i_1}, d_{i_2}, \dots, d_{i_n}\}\)
@@ -87,7 +87,7 @@ To faithfully represent all of the data with a single function, it would certain
 	\caption{ (Linear) regression split}
 \end{figure}
 
-The decision criterion for the splitting function works analogously to the classification case. The only difference is that we need to define the entropy on continous values:
+The decision criterion for the splitting function works analogously to the classification case. The only difference is that we need to define the entropy on continuous values:
 
 \[H(S_j) = -\frac{1}{|S_j|} \cdot \sum_{\vec{x} \in S_j} \int_y p(y|x) \cdot log(y|x)dy\]
 
@@ -107,15 +107,15 @@ Combining the expression for \(p(y|x)\) into \(H(S_j)\) yields
 
 \newpage
 \subsection*{Density Forests}
-Very same idea, adapted to unlabelled data $\Rightarrow$ learning-based density estimator.
+Very same idea, adapted to unlabeled data $\Rightarrow$ learning-based density estimator.
 
-Each leaf node is modeled as a multivariate Gaussian distribution. The information gain metric can again be reused, but let us choose \(H(S_j)\) defined by $|\Lambda|$ \footnote{$\Lambda$ is the associated $d \times d$ convariance matrix of the data, $|\Lambda|$  can be seen as the "volume of a cluster"}
+Each leaf node is modeled as a multivariate Gaussian distribution. The information gain metric can again be reused, but let us choose \(H(S_j)\) defined by $|\Lambda|$ \footnote{$\Lambda$ is the associated $d \times d$ covariance matrix of the data, $|\Lambda|$  can be seen as the "volume of a cluster"}
 \[
   H(S_j) = \frac{1}{2} \cdot log((2 \pi e)^d |\Lambda S_j|)
 \]
 
 \textit{Motivation:}
-Determinant of covariance matrix is a function of the volume of the ellispoid corresponding to that cluster. Maximizing the information gain tends to split the data into a number of compact clusters. The centers of those clusters tend to be placed in areas of high data density, while the separating surfaces are placed along regions of low density.\\
+Determinant of covariance matrix is a function of the volume of the ellipsoid corresponding to that cluster. Maximizing the information gain tends to split the data into a number of compact clusters. The centers of those clusters tend to be placed in areas of high data density, while the separating surfaces are placed along regions of low density.\\
 
 Plugging \(H(S_j)\) back into \(I(S_j, \vartheta)\) yields
 \[I(S_j, \vartheta) = log (|\Sigma(S_j)|) - \sum_{i \in \{L, R\}} \frac{|S_j^i|}{|S_j|} \cdot log(|\Lambda(S_j^i)|)\]
@@ -168,7 +168,7 @@ However if the affinities are averaged over the whole forest, all points become 
   \item[\(\Rightarrow\)] Compute LE on \(A\).
 \end{itemize}
 
-\paragraph{Note} that the graph Laplacian in Ciminisi/Shotton  are differently normalized, but it is the same algorithm:
+\paragraph{Note} that the graph Laplacian in Criminisi/Shotton  are differently normalized, but it is the same algorithm:
 \[L = I - \Gamma^{-\frac{1}{2}} A \Gamma^{-\frac{1}{2}}\]
 where \(\Gamma = D = \sum_{i,j} A_{ij}\) denotes the sum of the weights for sample \(x_i\).\footnote{just for normalization}
 
