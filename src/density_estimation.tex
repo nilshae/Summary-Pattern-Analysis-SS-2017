@@ -17,20 +17,21 @@ Let $p(\vec{x})$ denote a probability density function pdf then:
   \item $p(\vec{a} \le \vec{x} \le \vec{b}) = \int_{\vec{a}}^{\vec{b}} p(\vec{x}) \,d\vec{x}$
 \end{enumerate}
 
-\subparagraph{Parametric density estimation}
+\paragraph{Parametric density estimation}
 (mostly Pattern Recognition)
 
 Make an assumption about the underlying distribution (e.g. Gausian, GMM) and determine the best fitting distribution parameters from the data. (ML estimation, MAP estimation)
 
-\subparagraph{Non-parametric density estimation}
+\paragraph{Non-parametric density estimation}
 
 We make no assumption of the underlying Model. (Example Parzen-Rosenblatt estimator)
 
-\subparagraph{Q:} How can we (practically) sample from a pdf?
+\paragraph{Sampling from a pdf}
+Sampling provides a princeple way of generating new / more data that behaves / looks similary to the observations.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\textwidth]{02-pdf-cdf}
 \end{figure}
 
-Compute through discretisation of the pdf $cdf[i] = cdf[i-1] + pdf[i]$. Then draw a uniformly distributed number ($r$) between 0 and 1. The sampled value is $x$ where $cdf[x] = r$
+Compute through discretisation of the pdf $cdf[i] = cdf[i-1] + pdf[i]$. Then draw a uniformly distributed number ($r$) between 0 and 1. The sampled value is $x$ where $cdf[x] = r$.
