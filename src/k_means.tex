@@ -4,7 +4,7 @@
 
 \begin{itemize}
 	\item \textbf{Initialization:} randomly assign k mean vectors as cluster centers
-	\item \textbf{Repeat:} 
+	\item \textbf{Repeat:}
 		\begin{itemize}
 			\item Assign each observation to the closest cluster mean
 			\item For a given cluster assignment \(C\), compute each clusters mean
@@ -19,11 +19,6 @@ As a quality measure we use the within-cluster scatter, which can be written as
 	W(C) = \sum_{k=1}^K N_k \sum_{C(i) = k} ||x_i - \mu_k||^2
 \end{equation*}
 where \(\mu_k\) is the mean vector associated with the \(k\)th cluster, and \(N_k\) is the number of observations assigned to a cluster. K must be chosen beforehand. Thus, the criterion is minimized by assigning the \(N\) observations to the \(K\) clusters in such a way that within each cluster the average dissimilarity of the observations from the cluster mean, as defined by the points in that cluster, is minimized.
-
-
-
-\subsection*{Gaussian Mixtures as Soft K-means Clustering}
-The \(K\)-means clustering procedure is closely related to the EM algorithm for estimating a certain Gaussian mixture model. Suppose we specify \(K\) mixture components, each with a Gaussian density having a scalar covariance matrix \(\sigma^2 I\). Then the relative density under each mixture component is a monotone function of the Euclidean distance between the data point and the mixture center. Hence in this setup EM is a "soft" version of \(K\)-means clustering, making probabilistic assignments of points to cluster centers. As the variance \(\sigma^2 \rightarrow 0\), these probabilities become 0 and 1, and the two methods coincide (responsibility of mixture component \(i: \frac{g_i(x)}{\sum_m g_m(x)}\)).
 
 \subsection*{Vector Quantization}
 The \(K\)-means clustering algorithm represents a key tool in the apparently unrelated area of image and signal compression, particular in \textit{vector quantization} or \textit{VQ}(Gersho and Gray, 1992).
@@ -48,6 +43,20 @@ The \(K\)-means clustering algorithm represents a key tool in the apparently unr
 This is essentially executing Laplacian Eigenmaps + \(k\)-Means on the lower dimensional space.
 
 How to choose a appropriate \(d'\)? The distribution of the eigenvalues gives an indication about the intrinsic dimensionality of the data. If there is a certain gap between eigenvalue, this is a good indication. We don't have this available when using LLE.
+
+\subsection*{Gaussian Mixtures as Soft K-means Clustering}
+The \(K\)-means clustering procedure is closely related to the EM algorithm for estimating a certain Gaussian mixture model. Suppose we specify \(K\) mixture components, each with a Gaussian density having a scalar covariance matrix \(\sigma^2 I\). Then the relative density under each mixture component is a monotone function of the Euclidean distance between the data point and the mixture center. Hence in this setup EM is a "soft" version of \(K\)-means clustering, making probabilistic assignments of points to cluster centers. As the variance \(\sigma^2 \rightarrow 0\), these probabilities become 0 and 1, and the two methods coincide (responsibility of mixture component \(i: \frac{g_i(x)}{\sum_m g_m(x)}\)).
+
+\paragraph{Short reminder: Gaussian mixture models}
+
+Start with random initialization, expectation (how much does each component contribute to each point), maximization (update component parameters), repeat until convergence
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{GMM_EM}
+\end{figure}
+
+From a more abstract perspective, EM performs two tasks simultaneously: segmentation/clustering assignment, and model parameters estimation/fitting
 
  \subsection*{Practical Issues}
  In order to use \(K\)-means or -medioids one must select the number of clusters \(K^*\) as initialization. A choice for the number of clusters \(K\) depends on the goal. For data segmentation \(K\) is usually defined a part of the problem.

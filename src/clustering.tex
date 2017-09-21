@@ -5,8 +5,7 @@ Grouping or segmenting a samples into clusters, such that those within each clus
 
 \subsection*{Types of Clustering Algorithms}
 \begin{itemize}
-    \item \textbf{Combinatorial:} work directly on the observed data with no direct reference to an unterlying probability model (k-means and flavors).
     \item \textbf{Mode seeking("bump hunting"):} takes a nonparametric perspective, attempting to directly estimate distinct modes of the pdf. Observations "closest" to each respective mode then define the individual clusters (Mean Shift).
+    \item \textbf{Combinatorial:} work directly on the observed data with no direct reference to an unterlying probability model (k-means and flavors).
     \item \textbf{Mixture modeling:} assumes an underlying distribution, usually Gaussians. The pdf describing the data is characterized by a mixture of parameterized distributions (Gaussians). Each component density describes one of the clusters (Dirichlet process, GMM, CRP).
 \end{itemize}
-
