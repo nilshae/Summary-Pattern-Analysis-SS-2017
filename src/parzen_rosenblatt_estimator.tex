@@ -55,4 +55,5 @@ Let's do ML est.\ with a cross-validation (cv) e.g.\ leave-one-sample-out cv. Es
 
 The position of the maximum does not change (when using log-likelihood), because the logarithm is a strictly monotonic function.
 
-%TODO: explain connection between the parzen window estimator and the mean shift algorithm
+\paragraph{Remark:}
+When the data is scaled differently, then we would like the window size to be adaptive. One solution is to use the k-NN combined with the parzen window estimator. This means we foce the number of neighours inside a window to equal a fixed k.
