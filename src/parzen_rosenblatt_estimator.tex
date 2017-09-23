@@ -37,8 +37,7 @@ where we can choose a suitable kernel function $k(\vec{x}; \vec{x_i})$. E.g. bin
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{03-window-size}
-  \caption{Effects of the window / kernel size}
-  % TODO: change to to too small
+  \caption{Effects of the window / kernel size: too small, too wide, just right}
 \end{figure}
 
 \paragraph{How can we determine a good window / kernel size} $\hat{h}$?
@@ -52,8 +51,6 @@ Let's do ML est.\ with a cross-validation (cv) e.g.\ leave-one-sample-out cv. Es
 \begin{equation*}
   \hat{h} = \argmax_h L(h) = \argmax_h \prod_{j=1}^N p_{h,N-1}^j(\vec{x_j}) = \argmax_h \sum_{j=1}^N \log p_{h,N-1}^j(\vec{x_j})
 \end{equation*}
-
-The position of the maximum does not change (when using log-likelihood), because the logarithm is a strictly monotonic function.
 
 \paragraph{Remark:}
 When the data is scaled differently, then we would like the window size to be adaptive. One solution is to use the k-NN combined with the parzen window estimator. This means we foce the number of neighours inside a window to equal a fixed k.

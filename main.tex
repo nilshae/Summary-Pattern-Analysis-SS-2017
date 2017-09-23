@@ -15,7 +15,7 @@
 \usepackage{hyperref}
 
 \title{Summary Pattern Analysis\\ Sommersemester 2017}
-\author{Nils Häusler}
+\author{Nils Häusler, Moritz Grand}
 \date{\today}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -27,9 +27,14 @@
 \begin{document}
 
 \begin{titlepage}
-  \maketitle
   \thispagestyle{empty}
+  \maketitle
+  \includegraphics[width=\textwidth]{overview.png}
 \end{titlepage}
+
+{\centering
+	This page is empty on purpose.\par
+}
 
 \newpage
 \import{./src/}{density_estimation.tex}
@@ -57,9 +62,6 @@
 
 \newpage
 \import{./src/}{multi_dimensional_scaling.tex}
-
-\newpage
-\import{./src/}{isomap_algorithm.tex}
 
 \newpage
 \import{./src/}{locally_linear_embedding.tex}
