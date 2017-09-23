@@ -54,7 +54,7 @@ Meaning of $\alpha_t(i)$: Sum of all paths (probabilities) to end up in state $i
 \paragraph{Backward Algorithm:}
 
 \begin{enumerate}
-    \item Initialization: \(\beta_T (i) = 1\) (choosen arbitrarily)
+    \item Initialization: \(\beta_T (i) = 1\) (chosen arbitrarily)
     \item Induction: \(\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(o_{t+1}) \beta_{t+1}(j)\)
 \end{enumerate}
 
@@ -108,7 +108,7 @@ Solution: Choose \(\lambda = (A, B, \vec{\pi})\) to locally maximize $p(O|\lambd
 	\item $\alpha_t(i) = p(o_1,\dots, o_t, q_t=S_i|\lambda)$: probability of partial observation sequence ending in $S_i$ at time $t$.
 	\item $\beta_t(i) = p(o_1,\dots, o_t | q_t=S_i, \lambda)$: probability of partial future observation sequence starting in $S_i$ at time $t$.
 	\item $\gamma_t(j) = p(q_t=S_i|O, \lambda)$: probability of being in state $S_j$ at time $t$.
-	\item $\xi_t(i,j) = p(q_t=S_i, q_{t+1}=S_j|O, \lambda)$: probabiltiy of transitioning from $S_i$ to $S_j$ at time $t$.
+	\item $\xi_t(i,j) = p(q_t=S_i, q_{t+1}=S_j|O, \lambda)$: probability of transitioning from $S_i$ to $S_j$ at time $t$.
 \end{itemize}
 
 \paragraph{Baum-Welch-Algorithm (EM-type Algorithm):}
@@ -136,6 +136,6 @@ Solution: Choose \(\lambda = (A, B, \vec{\pi})\) to locally maximize $p(O|\lambd
 
 \begin{itemize}
     \item the directed edge in a HMM graph can be understood as a statistical dependency $p(S_2|S_1)$
-    \item generative approch
-    \item For many tasks including speach processing, we often only allow state transitions $a_{ij}$ with $i \le j$ (no backward links). So called "left-right-HMMs".
+    \item generative approach
+    \item For many tasks including speech processing, we often only allow state transitions $a_{ij}$ with $i \le j$ (no backward links). So called "left-right-HMMs".
 \end{itemize}

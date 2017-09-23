@@ -3,7 +3,7 @@
 \section*{Parzen-Window estimator}
 \paragraph{Idea:} Quantify the number of samples with a appropriate kernel/window function. In other words we interpolate
 % \footnote{General remark: We obtain a continuous pdf, i.e.\ desity estimation converts a list of measurments to a statistical model}
-the pdf from the observations in the neighbourhood of a position $\vec{x}$.
+the pdf from the observations in the neighborhood of a position $\vec{x}$.
 
 \paragraph{Derivation:} We can express $p_R$, the probability that $\vec{x}$ lies within a region $R$, in terms of the volume $V_R$ of this region\footnote{$\int_R \,d\vec{x}$ is just the volume of $R$, we also write $V_R$ for the volume}, when $p(\vec{x})$ is approximately constant in $R$.
 
@@ -23,7 +23,7 @@ Let's write the parzen window estimator as a function of a kernel $k(\vec{x}; \v
   \boxed{p(\vec{x}) = \dfrac{1}{h^d N} \sum_{i=1}^N k(\vec{x}; \vec{x_i})}
 \end{equation*}
 
-where we can choose a suitable kernel function $k(\vec{x}; \vec{x_i})$. E.g. binary decision\footnote{$\vec{x_i}$ and $\vec{x}$ are not father apart then $0.5 h$ in any dimension $k$} or a (multivariate) gaussian kernel\footnote{Omit $h^d$ if the kernel is gaussian}:
+where we can choose a suitable kernel function $k(\vec{x}; \vec{x_i})$. E.g. binary decision\footnote{$\vec{x_i}$ and $\vec{x}$ are not father apart then $0.5 h$ in any dimension $k$} or a (multivariate) Gaussian kernel\footnote{Omit $h^d$ if the kernel is gaussian}:
 
 \begin{equation*}
   k(\vec{x}; \vec{x_i}) = \begin{cases}
@@ -53,4 +53,4 @@ Let's do ML est.\ with a cross-validation (cv) e.g.\ leave-one-sample-out cv. Es
 \end{equation*}
 
 \paragraph{Remark:}
-When the data is scaled differently, then we would like the window size to be adaptive. One solution is to use the k-NN combined with the parzen window estimator. This means we foce the number of neighours inside a window to equal a fixed k.
+When the data is scaled differently, then we would like the window size to be adaptive. One solution is to use the k-NN combined with the Parzen window estimator. This means we force the number of neighbors inside a window to equal a fixed k.

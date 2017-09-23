@@ -2,7 +2,7 @@
 
 \subsection*{Laplacian Eigenmaps}
 
-\paragraph{Idea:} TODO: add short description from lecture
+\paragraph{Idea:} Apply a SVD on the graph Laplacian of a fully connected graph of observations.
 
 \begin{enumerate}
     \item Build an adjacency graph on the set of feature points \(S=\{\vec{x_1}, \dots, \vec{x_n}\}\). We use the \textbf{Graph Laplacian} \footnote{Matrix representation of a graph} $L$.
@@ -26,7 +26,7 @@
     \item Obtain low-dimensional embedding by selecting a ordered subset of eigenvectors from the decomposition.
     \begin{itemize}
         \item Discard the eigenvalue/eigenvector pair for the lowest eigenvalues\footnote{The number of eigenvalues depends on the connected components in the graph} (the 0 eigenvalue)
-        \item The \(d'\) next smallest eigenvalue/eigenvector pairs form the lower dimensional embedding: \(i\)th row of \(E = (\vec{e_1}, \vec{e_2}, \dots, \vec{e_{d'}})\) equals  \(\vec{x_i}'^T\) which represents the lower dimensioanl embedding of \(\vec{x_i}^T\).
+        \item The \(d'\) next smallest eigenvalue/eigenvector pairs form the lower dimensional embedding: \(i\)th row of \(E = (\vec{e_1}, \vec{e_2}, \dots, \vec{e_{d'}})\) equals  \(\vec{x_i}'^T\) which represents the lower dimensional embedding of \(\vec{x_i}^T\).
     \end{itemize}
 \end{enumerate}
 

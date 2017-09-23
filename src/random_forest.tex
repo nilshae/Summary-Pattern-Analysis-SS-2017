@@ -2,7 +2,7 @@
 
 \section*{Random Forest}
 
-Is a learing based approach for analysing the feature space, with an ensemble of decision trees. A decision tree is a binary tree with a "decision"\footnote{"Is this sample on the right side of a hyperplane?"} at every internal and the root node. It's a learning based approach, because good decision functions at the internal nodes are the result of training.
+Is a learning based approach for analyzing the feature space, with an ensemble of decision trees. A decision tree is a binary tree with a "decision"\footnote{"Is this sample on the right side of a hyperplane?"} at every internal and the root node. It's a learning based approach, because good decision functions at the internal nodes are the result of training.
 
 % \begin{figure}[H]
 %   \centering
@@ -11,7 +11,7 @@ Is a learing based approach for analysing the feature space, with an ensemble of
 
 \paragraph{Training:} of a single tree in a forest of size T
 \begin{enumerate}
-  \item Select a number of splitting functions (e.g. hyperplanes or conics, ...)\footnote{simpler functions are typically prefered. Simplest function: "axis aligned split"}
+  \item Select a number of splitting functions (e.g. hyperplanes or conics, ...)\footnote{simpler functions are typically preferred. Simplest function: "axis aligned split"}
   \item Evaluate the information gain $I = H_{\text{before}} - H_{\text{after-l, weighted}} - H_{\text{after-r, weighted}}$ for each splitting function \footnote{where \(S_j\) is the data that flows into the node, \(S^L_j S^R_j\) is the data that flows to the left/right and \(H()\) denotes the entropy.}
   \[I = H(S_j) - \sum_{i \in \{L,R\}} \frac{|S^i_j|}{|S_j|} H(S^i_j)\]
   \item Set the one with maximum information gain as the current nodes' decision function
@@ -37,7 +37,7 @@ The leaf node performs an application-specific action. For example, if the task 
 
 \paragraph{Randomization parameters:}
 \begin{itemize}
-  \item The candidate functions, out of which the best on is chosen  are randomly drawn
+  \item The candidate functions - out of which the best one is chosen - are randomly drawn
   \item if also linear projection of the data shall be drawn (e.g. consider only dimensions \(\{d_{i_1}, d_{i_2}, \dots, d_{i_n}\}\)
   \item how the splitting parameters are sampled \footnote{a sparser sampling leads to more "noise"/less optimal results (might be desired, e.g. prevents overfitting).}
   \item (how many candidate functions are drawn)
@@ -73,11 +73,11 @@ The final classifier combines all trees by averaging the individual tree outputs
 
 \newpage
 \subsection*{Regression Forests}
-Goal: Use the random forest model to predict a \underline{continous} label \(p(y|\vec{x})\).
+Goal: Use the random forest model to predict a \underline{continuous} label \(p(y|\vec{x})\).
 
 (Remark: choice of the model complexity is related to the bias/variance trade off)
 
-"Leaf prediction model": a base function that is fitted to the samples. The leaf prediction model could be constant (maximise the bias), linear, polynomial, ...
+"Leaf prediction model": a base function that is fitted to the samples. The leaf prediction model could be constant (maximize the bias), linear, polynomial, ...
 
 To faithfully represent all of the data with a single function, it would certainly make sense to use a polynomial model, or something even more complex. However, the random idea implies to subdivide/partition the space, and to fit simpler models to the individual partitions.
 
@@ -148,7 +148,7 @@ In each leaf, fit a multivariate Gaussian distribution to the data in that leaf 
 
 Let \(w_{ij} = e^{-Q(x_i, x_j)}\) denote the affinity between samples \(x_i,x_j\), where \(Q(x_i, x_j)\) denotes a distance function.
 
-The "speciaility" of a Manifold Forest (in contrast, e.g. to standard Laplacian Eigenmaps) is that these distances are defined w.r.t. the leafs of the trees (i.e. the partitions).
+The "specialty" of a Manifold Forest (in contrast, e.g. to standard Laplacian Eigenmaps) is that these distances are defined w.r.t. the leafs of the trees (i.e. the partitions).
 
 \bigbreak
 

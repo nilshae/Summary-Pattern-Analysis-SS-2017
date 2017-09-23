@@ -3,7 +3,7 @@
 \section*{\href{http://ieeexplore.ieee.org/document/1000236/?arnumber=1000236&tag=1}{Mean Shift Algorithm}}
 
 \paragraph{Idea:}
-Find maxima in pdf without actually performing a full density estimation \footnote{This applies only in some cases, e.g. quickly finding clusters through particle tracing or with a downsampled PDF}. Maxima can be found, where the gradient of the pdf is zero. \\
+Find maxima in pdf without actually performing a full density estimation \footnote{This applies only in some cases, e.g. quickly finding clusters through particle tracing or with a down-sampled PDF}. Maxima can be found, where the gradient of the pdf is zero. \\
 
 Assume that we have a full density estimation
 \begin{equation*}
@@ -42,7 +42,7 @@ To perform a gradient ascent, compute the gradient, walk one step, re-compute th
 	\centering
 	\begin{minipage}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{04-kernel-size}
-		\caption{The kernel size h indirectly controls the number of indentified maxima}
+		\caption{The kernel size h indirectly controls the number of identified maxima}
 	\end{minipage}
 	\begin{minipage}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{05-kernel-size-pitfall}
@@ -82,5 +82,5 @@ If we use the Epanechnikov kernel as $k_h$, then the computation breaks down to 
 \begin{itemize}
   \item Different trajectories typically coverage only to \textbf{almost} the same peak, thus, we will have to post process the peaks and somehow reduce them.
   \item We don't have a guarantee to sit on top of a maximum when reaching a 0-gradient. This is due to the finite window size and the discrete representation of our density (see figure \ref{mean-shift-issue}).
-  \item \label{mean-shift-cost-effectiveness} If the amount of data is large, then it may become extremly costly to iteratively evaluate the ``neighbourhood finder''. In that case we have to help ourself, either with a smart data structure (oct-tree or a generalisation for many dimensions) or locality sensitve hashing (LSH).
+  \item \label{mean-shift-cost-effectiveness} If the amount of data is large, then it may become extremely costly to iteratively evaluate the ``neighborhood finder''. In that case we have to help ourself, either with a smart data structure (oct-tree or a generalization for many dimensions) or locality sensitive hashing (LSH).
 \end{itemize}

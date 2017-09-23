@@ -12,7 +12,7 @@ Let's say we would like to cover enough volume of  the cube to collect $1\%$ of 
 
 \textbf{Example} for a 10 dimensional hypercube $V=s^d \Rightarrow s = V^{\frac{1}{d}} = 0,01^{\frac{1}{10}} = 0.63$\\
 
-Another way of thinking about this is, that in a very high dimensional space, virtually every feature point is located at the boundary of the feature space\footnote{Because in at least one dimension, we draw a very low of very high value}. This leads to the effect, that common distance measures loose their  effectivity. E.g. the \textit{median} distance for the nearest neighbour to the origin.
+Another way of thinking about this is, that in a very high dimensional space, virtually every feature point is located at the boundary of the feature space\footnote{Because in at least one dimension, we draw a very low of very high value}. This leads to the effect, that common distance measures loose their effectiveness. E.g. the \textit{median} distance for the nearest neighbor to the origin.
 
 \paragraph{Example applications:}
 (``Notorious'' examples for high dimensional data)
@@ -27,13 +27,13 @@ In such classification pipelines, dimensionality reduction is often one integral
 \subsubsection*{Additional notes}
 \begin{itemize}
     \item Manifold learning algorithms are based on the idea that the dimensionality of many data sets is only artificially high. Although the data points may consist of thousands of features, they may be described as a function of only a few underlying parameters. That is, the data points are actually sampled from a low-dimensional manifold that is embedded in a high dimensional space. Manifold learning algorithms attempt to uncover these parameters in order to find a low-dimensional representation of the data.
-    \item Finding optimal dimensionality: Look at residual variance (or error) (depending on \(d\)) and search for "elbow" at which the curve ceases to decrease significanlty with added dimensions. (PCA/MDS tend to overestimate dimensionality)
+    \item Finding optimal dimensionality: Look at residual variance (or error) (depending on \(d\)) and search for "elbow" at which the curve ceases to decrease significantly with added dimensions. (PCA/MDS tend to overestimate dimensionality)
     \item PCA and MDS are guaranteed, given sufficient data, to recover the true structure of linear manifolds
     \item Possible problems:
 
         \begin{itemize}
-            \item If \(k\) for \(k\)-NN is to large, or noise in the data moves the points slightly off the manifold, ISOMAP is vulnerable to "short-circuiut error", where even single errors can alter the low-dim embedding drastically
-            \item If \(k\) is to small, the neighborhood graph may become too sparse to approximate geodesic paths accuratly
+            \item If \(k\) for \(k\)-NN is to large, or noise in the data moves the points slightly off the manifold, ISOMAP is vulnerable to "short-circuit error", where even single errors can alter the low-dim embedding drastically
+            \item If \(k\) is to small, the neighborhood graph may become too sparse to approximate geodesic paths accurately
         \end{itemize}
 
 \end{itemize}

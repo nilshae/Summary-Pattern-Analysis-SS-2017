@@ -33,11 +33,11 @@ The \(K\)-means clustering algorithm represents a key tool in the apparently unr
 \end{enumerate}
 
 \subsection*{\(K\)-medoids}
- \(K-\)means stuggels with outliers, because using \textit{squared} Euclidean distance places the highest influence on the larger distances.
+ \(K-\)means struggles with outliers, because using \textit{squared} Euclidean distance places the highest influence on the larger distances.
 
  Instead of taking means as cluster center, one can identify the sample inside each cluster, which is nearest to all other samples inside it. One then assigns this sample to be the new cluster center.
 
- The downside is that \(K\)-medioids is far more computationally intensive.
+ The downside is that \(K\)-medoids is far more computationally intensive.
 
 \subsection*{Spectral clustering}
 This is essentially executing Laplacian Eigenmaps + \(k\)-Means on the lower dimensional space.
@@ -59,9 +59,9 @@ Start with random initialization, expectation (how much does each component cont
 From a more abstract perspective, EM performs two tasks simultaneously: segmentation/clustering assignment, and model parameters estimation/fitting
 
  \subsection*{Practical Issues}
- In order to use \(K\)-means or -medioids one must select the number of clusters \(K^*\) as initialization. A choice for the number of clusters \(K\) depends on the goal. For data segmentation \(K\) is usually defined a part of the problem.
+ In order to use \(K\)-means or -medoids one must select the number of clusters \(K^*\) as initialization. A choice for the number of clusters \(K\) depends on the goal. For data segmentation \(K\) is usually defined a part of the problem.
 
- Data-based methods for estimating \(K^*\) typically examine the within cluster dissimilarity \(W_k\) as a function of the number of clusters \(K\). Seperate solutions are obtained for \(K \in \{1,2,\dots,K_{max}\}\). The corresponding values generally decrease with increasing \(K\).
+ Data-based methods for estimating \(K^*\) typically examine the within cluster dissimilarity \(W_k\) as a function of the number of clusters \(K\). Separate solutions are obtained for \(K \in \{1,2,\dots,K_{max}\}\). The corresponding values generally decrease with increasing \(K\).
 
 \begin{figure}[H]
  	\centering
@@ -71,7 +71,7 @@ From a more abstract perspective, EM performs two tasks simultaneously: segmenta
  	\end{minipage}
  	\begin{minipage}[b]{0.49\textwidth}
    	\includegraphics[width=\textwidth]{08-w_c-vs-w_prime_c}
-   \caption{Approach 2: Relate change of $w(c)$ to change of $w'(c)$. Optimal \(K\) is where the gap between the two curves is largest (Proposed in TEoSL).}
+   \caption{Approach 2: Relate change of $w(c)$ to change of $w'(c)$. Optimal \(K\) is where the gap between the two curves is largest (Proposed in \href{https://web.stanford.edu/~hastie/ElemStatLearn/}{TEoSL}).}
  	\end{minipage}
 \end{figure}
 

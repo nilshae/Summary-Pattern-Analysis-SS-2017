@@ -1,11 +1,11 @@
 % !TeX root = ../main.tex
 
-\section*{Clustering \footnote{For clustering see section 14 of ``The Elements of Statistical Learning'' (Hastie, Tibshirani, Friedman - 2009). Section 14.3 ``Cluster Analysis'' introduces different flavours of k-means. }}
+\section*{Clustering \footnote{For clustering see section 14 of \href{https://web.stanford.edu/~hastie/ElemStatLearn/}{``The Elements of Statistical Learning''} (Hastie, Tibshirani, Friedman - 2009). Section 14.3 ``Cluster Analysis'' introduces different flavors of k-means. }}
 Grouping or segmenting a samples into clusters, such that those within each cluster are more closely related to one another\footnote{Sometimes the goal also is to arrange the clusters into a natural hierarchy.}. All clustering methods depend on the distance metric (dissimilarity measure) used (e.g. squared distance \(d(\vec{x_i}, \vec{x_j}) = ||\vec{x_i} - \vec{x_j}||^2)\). Specifying an appropriate dissimilarity measure is far more important in obtaining success with clustering than choice of clustering algorithm.
 
 \subsection*{Types of Clustering Algorithms}
 \begin{itemize}
     \item \textbf{Mode seeking("bump hunting"):} takes a nonparametric perspective, attempting to directly estimate distinct modes of the pdf. Observations "closest" to each respective mode then define the individual clusters (Mean Shift).
-    \item \textbf{Combinatorial:} work directly on the observed data with no direct reference to an unterlying probability model (k-means and flavors).
+    \item \textbf{Combinatorial:} work directly on the observed data with no direct reference to an underlying probability model (k-means and flavors).
     \item \textbf{Mixture modeling:} assumes an underlying distribution, usually Gaussians. The pdf describing the data is characterized by a mixture of parameterized distributions (Gaussians). Each component density describes one of the clusters (Dirichlet process, GMM, CRP).
 \end{itemize}

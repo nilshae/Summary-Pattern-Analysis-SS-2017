@@ -35,8 +35,8 @@ Obtaining $X$ is a matrix factorization problem, which we can solve by computing
 
 We can reduce the dimensionality of our data by:
 \begin{itemize}
-    \item Determining the \(d\) largest eigennvalues and their corresponding eigenvectors
-    \item Dropping the remaining eigenvalue and eigennvectors inside the multiplication
+    \item Determining the \(d\) largest eigenvalues and their corresponding eigenvectors
+    \item Dropping the remaining eigenvalue and eigenvectors inside the multiplication
 \end{itemize}
 
 MDS is essentially the same thing as PCA, but it operates on distances.
@@ -45,11 +45,11 @@ MDS is essentially the same thing as PCA, but it operates on distances.
 \subsection*{Isometric Feature Mapping (ISOMAP)}
 A non-linearity ``patch'' to MDS
 
-\paragraph{Idea:} Nearby points have their ``usual'' euclidian distance. If a pair of points are not within a local neigbourhood, then the distance between these points is a \textbf{graph distance}\footnote{Compute the all pairs shortest path (Dejkstra, A*,  DFS, Floyd–Warshall, ...)}. Then run MDS on the resulting distance Matrix.
+\paragraph{Idea:} Nearby points have their ``usual'' euclidean distance. If a pair of points are not within a local neighborhood, then the distance between these points is a \textbf{graph distance}\footnote{Compute the all pairs shortest path (Dijkstra, A*,  DFS, Floyd–Warshall, ...)}. Then run MDS on the resulting distance Matrix.
 
 ISOMAP operates on geodesic distances (like a distance on earths surface/distances on the manifold).
 
 \begin{itemize}
 	\item ISOMAP is guaranteed asymptotically to recover the true dimensionality and geometric structure of a strictly larger class of nonlinear manifolds, which intrinsic geometry is that of a convex region of Euclidean space
-	\item ISOMAP is a polynomial time, noniterative procedure which guarantees global optimality
+	\item ISOMAP is a polynomial time, non-iterative procedure which guarantees global optimality
 \end{itemize}

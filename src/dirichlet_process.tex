@@ -4,9 +4,9 @@
 
 \paragraph{Idea}
 
-The Dirichlet Process is the idea of drawing a GMM from a meta-distribution, which can model infinite gaussian mixtures.
+The Dirichlet Process is the idea of drawing a GMM from a meta-distribution, which can model infinite Gaussian mixtures.
 
- We need a fitting algorithm (\textbf{Gibbs sampling}) that fits a GMM to the data independent of the number of components. This is based on the \textbf{Chinese restaurant process}, which provides a constructive way of sampling from a dirichlet process.
+ We need a fitting algorithm (\textbf{Gibbs sampling}) that fits a GMM to the data independent of the number of components. This is based on the \textbf{Chinese restaurant process}, which provides a constructive way of sampling from a Dirichlet process.
 
 \begin{figure}[H]
 	\centering
@@ -21,7 +21,7 @@ The Dirichlet Process is the idea of drawing a GMM from a meta-distribution, whi
 \end{enumerate}
 
 \paragraph{Gibbs sampling:}
-A straight forward (probailistic\footnote{because we sample from the list}) clustering algorithm based on the CRP
+A straight forward (probabilistic\footnote{because we sample from the list}) clustering algorithm based on the CRP
 
 \begin{enumerate}
     \item Init: assign each sample to a cluster (e.g. randomly, or do \(k-\)means)
@@ -35,7 +35,7 @@ A straight forward (probailistic\footnote{because we sample from the list}) clus
 \end{enumerate}
 
 \paragraph{Back to the top-down view:}
-Using the CRP, we are effectivly drawing a GMM using a dirichlet process. Implicitly, the mixture weights $\beta_i$ match a $Beta(\alpha)$ distribution and the normal distributions are drawn from a hyper-distribution, i.e. $\vartheta_i \sim H(\lambda)$
+Using the CRP, we are effectively drawing a GMM using a Dirichlet process. Implicitly, the mixture weights $\beta_i$ match a $Beta(\alpha)$ distribution and the normal distributions are drawn from a hyper-distribution, i.e. $\vartheta_i \sim H(\lambda)$
 
 \paragraph{Stick breaking process:} \href{https://en.wikipedia.org/wiki/Dirichlet_process#The_stick-breaking_process}{(check the wiki-page)}
 \begin{figure}[H]
@@ -60,7 +60,7 @@ The number that has been drawn form $Beta(1,\alpha)$ is used in the stick breaki
 \paragraph{Observation 2:}
 The number that has been drawn from \(Beta(1,\alpha)\) is used in the stick breaking process to determine the weight of the \(i\)-th mixture component \(\beta_i\).
 
-\paragraph{Stick breaking process (formalised):}
+\paragraph{Stick breaking process (formalized):}
 
 \begin{equation*}
 	b_i \sim Beta(1,\alpha)
