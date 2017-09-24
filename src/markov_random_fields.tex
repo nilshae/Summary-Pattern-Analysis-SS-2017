@@ -117,34 +117,3 @@ For graph construction we look at minimal subgraphs for both potentials, assign 
 		\includegraphics[width=\textwidth]{graph_cut}
 	\end{minipage}
 \end{figure}
-
-% TODO: Max Flow / Min Cuts
-
-
-%\bigbreak
-%\underline{Max Flow/Min Cut:}
-%
-%Max Flow: What is the maximum network throughput from source s to drain t? \(\Rightarrow\) use Ford/Fulkerson, or Preflow-Push
-%
-%Min Cut: Minimum sum of all edges that lead from s to t that are cut to seperate s from t.
-%
-%Min Cut is also a standard algorithm that runs in polynomial time.
-%
-%Define: "Graph-representable": A function \(\epsilon (x)\) is graph-representable, if there exists a graph, such that for any configuration \(x\), \(\epsilon(x)\) is equal to the cost of the minimum s-t-cut plus a constant value (which doesnt change for different configurations).
-%
-%Set \(x_i = 0\) if \(v_i \in S\) (a node is connected to the source), \(x_i=1\) if \(v_i \in \mathcal{T}\) (a node is connected to the drain/sink).
-%
-%If \(\epsilon\) is graph-representable by \(G\), then we can find an exact minimum of \(\epsilon\) in polynomial time, by computing a minimum s-t-cut on G.
-%
-%Theorem: Submodular quadratic pseudo-boolean functions are graph-representable.
-%
-%Submodularity condition on binary label sets: 
-%\[E^{i,j} (0, 0) + E^{i,j}(1,1) \leq E^{i,j} (0,1) + E^{i,j} (1,0)\]
-%
-%We seek to minimize
-%\[E(x) = \sum_i E^i(x_i) + \sum_{i,j} E^{i,j} (x_i, x_j)\]
-%
-%Graph construction:
-%See picture
-%
-%Problem: Find appropriate weights for such a graph.
