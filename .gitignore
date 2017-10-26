@@ -4,3 +4,6 @@ main.synctex.gz
 *.log
 *.aux
 *.out
+*.fdb_latexmk
+*.fls
+*.pdf
